@@ -39,3 +39,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# brief and raw design exports (kept locally, not part of the repo)
+/Technical_Test_Product_Engineer_Web_Octopus.pdf
+/Octopus_assets.zip
+/assets/
+
+# playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+
+# local editor/agent tooling
+/.claude/
