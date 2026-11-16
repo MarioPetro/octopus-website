@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+// Satoshi is served by the Fontshare CDN: its licence does not allow the font file
+// to be redistributed through a repository, so it cannot be self-hosted from this repo.
+// `satoshi@1` is the variable font (weights 300–900, needed for the 470 weight in Figma).
+const FONTSHARE_CSS = "https://api.fontshare.com/v2/css?f[]=satoshi@1&display=swap";
+
 export const metadata: Metadata = {
   title: {
     default: "Octopus",
@@ -13,6 +18,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
+      <head>
+        {/* Open the connections early: the CSS comes from api.*, the font file from cdn.* */}
+        <link rel="preconnect" href="https://api.fontshare.com" />
+        <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous" />
+        <link rel="stylesheet" href={FONTSHARE_CSS} />
+      </head>
       <body>{children}</body>
     </html>
   );
