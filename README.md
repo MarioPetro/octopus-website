@@ -49,7 +49,10 @@ Figma token it comes from (e.g. `--color-accent` ← `Alias tokens/Text/Accent`)
 - **Typography**: `text-h1`, `text-h2`, `text-h3` and `text-subtitle` are responsive tokens. They
   hold the Figma "S" size and switch to "M" and "L" at the tablet and desktop breakpoints, so
   components write a single class.
-- **Layout**: `px-gutter` (16 / 32 / 48 px side margin) and `max-w-content` (1344 px).
+- **Layout**: `px-gutter` (16 / 32 / 48 px side margin) and `max-w-content` (1344 px). As in
+  Figma, the margin goes on an outer element and the 1344 px column is centred inside it
+  (`px-gutter` > `mx-auto max-w-content`), so on a 1600 px screen the content is 1344 px wide
+  with 128 px on each side. Full-width sections (banners) sit outside the column.
 - **Radius**: `rounded-card` is 16 px on mobile and 28 px from tablet, as in Figma.
 
 ## Content and data access
@@ -148,6 +151,15 @@ src/
   is disabled on the first product and "next" on the last, however the row was scrolled. It is
   the only Client Component of the homepage. Two quick clicks move one card, because the second
   click lands while the first scroll is still animating.
+- **`PromoBanner` is generic; the homepage passes the Ionic Hair Dryer content.** Title,
+  description, link, the three image crops and the `background` fill are props, so another
+  product can be promoted with the same component. It uses the three Figma exports
+  (`categories/hair-care-*.png`). As in the Figma prototype, from tablet the photo is shifted to
+  the right by 13% of the width so the woman clears the text, and its left edge fades into the
+  fill. On mobile it is a 3:4 box resting on the bottom edge, as wide as the screen but at most
+  402px (the Figma mobile frame), so the head stays below the text at every phone width; on
+  screens wider than 402px its sides fade into the fill. The fill is a gradient sampled from the
+  photo's edge pixels, so it continues the photo's own background where the photo ends.
 - **Horizontal cards use one left padding (40px).** In Figma the large horizontal cards (best
   sellers, Kettle) have 64px on tablet and 80px on desktop; keeping a single value avoids a size
   prop on `ProductCard`, at the cost of the text starting slightly further left on those cards.
