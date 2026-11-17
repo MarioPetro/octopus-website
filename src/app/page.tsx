@@ -1,5 +1,5 @@
 import { Button, type ButtonColor } from "@/components/Button";
-import { Heading } from "@/components/Heading";
+import { SectionHeading } from "@/components/SectionHeading";
 import { ChevronIcon } from "@/components/icons";
 import { ImageFrame } from "@/components/ImageFrame";
 import { ResponsivePicture } from "@/components/ResponsivePicture";
@@ -34,8 +34,8 @@ export default function HomePage() {
         </div>
       ))}
 
-      <h2 className="text-h3">Heading</h2>
-      <Heading
+      <h2 className="text-h3">SectionHeading</h2>
+      <SectionHeading
         title="Kitchen"
         description="Powerful appliances for everyday cooking"
         cta={{ label: "Explore all products", href: "/categories/kitchen" }}

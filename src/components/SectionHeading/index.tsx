@@ -1,6 +1,6 @@
 import { Button } from "@/components/Button";
 
-export type HeadingProps = {
+export type SectionHeadingProps = {
   title: string;
   description: string;
   cta: { label: string; href: string };
@@ -11,7 +11,7 @@ export type HeadingProps = {
  * a centred title, a short description and a link to the full category.
  * Sections are direct children of the page, whose h1 is in the hero, so the title is an h2.
  */
-export function Heading({ title, description, cta }: HeadingProps) {
+export function SectionHeading({ title, description, cta }: SectionHeadingProps) {
   return (
     <header className="mx-auto flex max-w-[550px] flex-col items-center gap-8 text-center">
       <div className="flex flex-col gap-2">
