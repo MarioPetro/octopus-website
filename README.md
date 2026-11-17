@@ -141,6 +141,16 @@ src/
   so a new category can reuse an existing grid without changing the component. Card heights are
   fixed per breakpoint as in Figma, because the height decides how much room is left for the
   image; the tablet heights were measured from the Figma frame and are approximate.
+- **The best sellers carousel uses native scrolling, no library.** The row is a list with
+  `overflow-x: auto` and CSS scroll snapping, so swipe, trackpad and keyboard focus scroll it
+  without JavaScript. The arrows only call `scrollBy` (one card at a time, without animation when
+  the user prefers reduced motion) and read the scroll position on every `scroll` event: "previous"
+  is disabled on the first product and "next" on the last, however the row was scrolled. It is
+  the only Client Component of the homepage. Two quick clicks move one card, because the second
+  click lands while the first scroll is still animating.
+- **Horizontal cards use one left padding (40px).** In Figma the large horizontal cards (best
+  sellers, Kettle) have 64px on tablet and 80px on desktop; keeping a single value avoids a size
+  prop on `ProductCard`, at the cost of the text starting slightly further left on those cards.
 
 - **Satoshi is loaded from the Fontshare CDN, not self-hosted.** The ITF Free Font License allows
   self-hosting on your own site but forbids redistributing the font file, including through a

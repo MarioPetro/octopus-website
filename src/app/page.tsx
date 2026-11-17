@@ -1,9 +1,9 @@
+import { BestSellersCarousel } from "@/components/BestSellersCarousel";
 import { Button, type ButtonColor } from "@/components/Button";
 import { CategoryGallery } from "@/components/CategoryGallery";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ChevronIcon } from "@/components/icons";
 import { ImageFrame } from "@/components/ImageFrame";
-import { ProductCard } from "@/components/ProductCard";
 import { ResponsivePicture } from "@/components/ResponsivePicture";
 import { getCategories, getProducts } from "@/services";
 import type { CategorySlug } from "@/types";
@@ -13,7 +13,6 @@ const COLORS: ButtonColor[] = ["primary", "secondary", "ghost-light", "ghost-dar
 
 export default async function HomePage() {
   const [products, categories] = await Promise.all([getProducts(), getCategories()]);
-  const bySlug = (slug: string) => products.find((product) => product.slug === slug)!;
   const byCategory = (slug: CategorySlug) => categories.find((category) => category.slug === slug)!;
   const productsOf = (slug: CategorySlug) => products.filter((product) => product.category === slug);
 
@@ -59,10 +58,7 @@ export default async function HomePage() {
       />
       <CategoryGallery category={byCategory("accessories")} products={productsOf("accessories")} layout="row" />
 
-      <h2 className="text-h3">ProductCard (best seller)</h2>
-      <div className="desktop:h-[589px] desktop:w-[1048px]">
-        <ProductCard product={bySlug("air-fryer")} tabletLayout="horizontal" category="Kitchen" />
-      </div>
+      <BestSellersCarousel products={products.filter((product) => product.bestSeller)} categories={categories} />
 
       <h2 className="text-h3">ImageFrame</h2>
       <div className="grid grid-cols-3 gap-4">
