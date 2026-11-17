@@ -119,6 +119,9 @@ src/
 - **Missing assets use neutral placeholders** of the right aspect ratio: the hero video and the
   product page gallery and feature images were not part of the exported assets. In the data these
   images have no `src`.
+- **The Warehouse logo is set as text.** In the store banner Figma shows the retailer's logo, a
+  vector that was not among the exported assets. Its name is written as bold white text instead
+  ("Find us at / The Warehouse"), rather than redrawing another company's logo by hand.
 
 ## Decisions and trade-offs
 
@@ -160,6 +163,13 @@ src/
   402px (the Figma mobile frame), so the head stays below the text at every phone width; on
   screens wider than 402px its sides fade into the fill. The fill is a gradient sampled from the
   photo's edge pixels, so it continues the photo's own background where the photo ends.
+- **`StoreBanner` is separate from `PromoBanner`.** Both follow the same Figma "Banner" layout,
+  but the store banner has white text, a logo instead of a title, no description and a white
+  button. Rather than adding options to `PromoBanner`, `StoreBanner` has its texts, link and
+  photos written in it (there is one on the site). Its button keeps the white focus ring used on
+  red backgrounds. On tablet the banner keeps a 500px height while it widens up to 1199px, so the
+  photo is shown whole (`object-fit: contain`) on the right instead of being cropped, over a fill
+  sampled from the photo's own red (darker than the brand red), into which its left edge fades.
 - **Horizontal cards use one left padding (40px).** In Figma the large horizontal cards (best
   sellers, Kettle) have 64px on tablet and 80px on desktop; keeping a single value avoids a size
   prop on `ProductCard`, at the cost of the text starting slightly further left on those cards.

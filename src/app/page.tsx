@@ -5,6 +5,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { ChevronIcon } from "@/components/icons";
 import { ImageFrame } from "@/components/ImageFrame";
 import { PromoBanner } from "@/components/PromoBanner";
+import { StoreBanner } from "@/components/StoreBanner";
 import { getCategories, getProducts } from "@/services";
 import type { CategorySlug } from "@/types";
 
@@ -96,6 +97,7 @@ export default async function HomePage() {
         // Colours of the photos' left edge, top to bottom (sampled from the image pixels).
         background="linear-gradient(to bottom, rgb(217 187 166) 0%, rgb(222 193 171) 20%, rgb(225 197 175) 40%, rgb(225 197 175) 60%, rgb(222 191 168) 80%, rgb(213 182 159) 100%)"
       />
+      <StoreBanner />
     </main>
   );
 }
