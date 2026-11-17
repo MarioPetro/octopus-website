@@ -107,6 +107,15 @@ src/
 
 ## Decisions and trade-offs
 
+- **Focus ring colour is darker than in Figma.** Figma's focus ring is a light blue (`#B1CAF7`,
+  1.7:1 on white); WCAG 1.4.11 asks for 3:1 for focus indicators. The ring keeps the same shape and
+  hue, darkened just enough to pass (`#5B8EEE`, 3.2:1). On red backgrounds (footer, store banner)
+  the ring is white instead, since no blue passes there.
+- **Button names.** Figma calls the white bordered button "Special"; in code it is `secondary`.
+  `Button` takes a `color` (`primary`, `secondary`, `ghost-light`, `ghost-dark`) and a `variant`
+  (`text`, or `icon` for the 40 px round icon-only button, which requires an `aria-label`). With an
+  `href` it renders a link, otherwise a `<button>`.
+
 - **Satoshi is loaded from the Fontshare CDN, not self-hosted.** The ITF Free Font License allows
   self-hosting on your own site but forbids redistributing the font file, including through a
   repository, so the file cannot be committed. Serving it from the CDN costs an extra connection to
