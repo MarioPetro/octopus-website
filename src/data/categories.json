@@ -1,0 +1,30 @@
+[
+  {
+    "id": "c-001",
+    "slug": "kitchen",
+    "name": "Kitchen",
+    "description": "Powerful appliances for everyday cooking",
+    "image": { "src": "/images/products/blender.png", "alt": "" }
+  },
+  {
+    "id": "c-002",
+    "slug": "home-security",
+    "name": "Home Security",
+    "description": "Home feels safer when you're always in the loop",
+    "image": { "src": "/images/products/indoor-camera.png", "alt": "" }
+  },
+  {
+    "id": "c-003",
+    "slug": "hair-care",
+    "name": "Hair Care",
+    "description": "Faster drying and less frizz, at home",
+    "image": { "src": "/images/products/ionic-hair-dryer.png", "alt": "" }
+  },
+  {
+    "id": "c-004",
+    "slug": "accessories",
+    "name": "Accessories",
+    "description": "The little things that make everything work better",
+    "image": { "src": "/images/products/usb-c-cable-round.png", "alt": "" }
+  }
+]

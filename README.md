@@ -51,6 +51,60 @@ Figma token it comes from (e.g. `--color-accent` ← `Alias tokens/Text/Accent`)
   components write a single class.
 - **Layout**: `px-gutter` (16 / 32 / 48 px side margin) and `max-w-content` (1344 px).
 
+## Content and data access
+
+```
+src/
+  data/       categories.json, products.json, product-detail.json (mock API responses)
+  types/      category.ts, product.ts, media.ts (+ index.ts re-exports)
+  services/   mock data access: getCategories(), getProducts(), getProductDetail(slug)
+```
+
+- **Data holds the content, the code holds the structure.** Which sections a page has, their order
+  and their layout are written in `page.tsx`; the categories and products they display come from
+  the mock API. The galleries take their title and description from the category.
+- **Who calls what.** The root layout calls `getCategories()` for the navbar and the footer, which
+  appear on every page. The homepage calls `getProducts()` and `getCategories()` and filters the
+  products for each component (by `category` for the galleries, by `bestSeller` for the carousel).
+  Components never call services: they receive data as props, which keeps them simple to test.
+- **When.** Pages are prerendered at build time, so the data is already in the HTML and the
+  browser makes no data requests. Service functions use the `"use cache"` directive: the layout and
+  the page share one `getCategories()` call, and the result stays part of the static page even
+  once the mock becomes a `fetch` to a real backend.
+- Pages never import the JSON files: they call the functions in `@/services`. `src/services` is a
+  data access layer, not Next.js route handlers (pages are prerendered at build time, when no
+  server is listening, so they read data directly instead of through HTTP).
+- Every service function is `async` even though it reads local JSON today. Switching to a headless
+  CMS or a backend changes only the body of these functions (`fetch` instead of a JSON import).
+- **Links are built from slugs**: `/products/{slug}` and `/categories/{slug}`. Pages outside the
+  scope of the demo (categories, where to buy, contact, policies, downloads) are not built, so
+  their links land on the not-found page; building the page later needs no change to the links.
+- Each homepage gallery shows the first three products of its category **in the order of
+  `products.json`**, and the first one gets the large card. Adding a product to `products.json` is
+  enough to show it in the right section; its position in the file decides whether it makes the
+  top three.
+- Every card links to `/products/{slug}`. The product page reads the slug from the URL and calls
+  `getProductDetail(slug)`, which is a **mock**: the demo has detail content for the Countertop
+  Blender only, so it returns that for any slug (the brief allows every card to open that page).
+- Image sizes are not stored in the data: each component reserves space with a CSS aspect-ratio
+  box taken from the Figma layout, so any image fits without layout shift.
+- `src/data/data-integrity.test.ts` checks what TypeScript cannot check in JSON: unique ids and
+  slugs, known categories, enough products for every gallery and the carousel, and that every image
+  referenced in the data exists in `public/`.
+
+## Assumptions
+
+- **Hidden texts in Figma are used.** On desktop and tablet some titles and descriptions (e.g. the
+  homepage hero heading) exist in the layers but are covered by images or video in the render.
+  They are treated as part of the design and shown at every breakpoint.
+- **Hair Care has a description in the data** even though Figma shows no Hair Care section (the
+  homepage promotes the Ionic Hair Dryer instead). Every category has one, so the data stays uniform.
+- **A second colour (Silver) is added to the Countertop Blender.** Figma only shows Black, but the
+  brief asks for the colour selector to update its selected state, which needs at least two options.
+- **Missing assets use neutral placeholders** of the right aspect ratio: the hero video, the
+  lifestyle images of the Kettle and Indoor Camera feature cards, and the product page gallery and
+  feature images were not part of the exported assets. In the data these images have no `src`.
+
 ## Decisions and trade-offs
 
 - **Satoshi is loaded from the Fontshare CDN, not self-hosted.** The ITF Free Font License allows

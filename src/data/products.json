@@ -1,0 +1,101 @@
+[
+  {
+    "id": "p-001",
+    "slug": "kettle",
+    "name": "Octopus Kettle 1.7 L",
+    "category": "kitchen",
+    "shortDescription": "A 1.7 L kettle that boils fast on 1800W, with a body that stays cool to the touch",
+    "image": { "src": "/images/products/kettle.png", "alt": "Octopus Kettle 1.7 L in dark steel" },
+    "bestSeller": true
+  },
+  {
+    "id": "p-002",
+    "slug": "blender",
+    "name": "Octopus Blender",
+    "category": "kitchen",
+    "shortDescription": "A portable blender that blends straight into a cup you can take with you",
+    "image": { "src": "/images/products/blender.png", "alt": "Octopus portable Blender with travel cup" },
+    "bestSeller": true
+  },
+  {
+    "id": "p-003",
+    "slug": "countertop-blender",
+    "name": "Octopus Countertop Blender",
+    "category": "kitchen",
+    "shortDescription": "A powerful blender that crushes ice and blends smooth with seven presets",
+    "image": { "src": "/images/products/countertop-blender.png", "alt": "Octopus Countertop Blender with glass jug" },
+    "bestSeller": false
+  },
+  {
+    "id": "p-004",
+    "slug": "air-fryer",
+    "name": "Octopus Air Fryer 5.7 L",
+    "category": "kitchen",
+    "shortDescription": "A 5.7 L air fryer that cooks meals quickly and evenly, with 2200W and dual heaters",
+    "image": { "src": "/images/products/air-fryer.png", "alt": "Octopus Air Fryer 5.7 L in black" },
+    "bestSeller": true
+  },
+  {
+    "id": "p-005",
+    "slug": "ionic-hair-dryer",
+    "name": "Octopus Ionic Hair Dryer",
+    "category": "hair-care",
+    "shortDescription": "An ionic hair dryer with a 110,000 RPM motor for fast drying and less frizz",
+    "image": { "src": "/images/products/ionic-hair-dryer.png", "alt": "Octopus Ionic Hair Dryer in grey" },
+    "bestSeller": true
+  },
+  {
+    "id": "p-006",
+    "slug": "indoor-camera",
+    "name": "Octopus Indoor Camera",
+    "category": "home-security",
+    "shortDescription": "A 2K indoor camera that pans to cover the whole room and tracks movement as it happens",
+    "image": { "src": "/images/products/indoor-camera.png", "alt": "Octopus Indoor Camera, white pan-tilt camera" },
+    "bestSeller": true
+  },
+  {
+    "id": "p-007",
+    "slug": "outdoor-camera",
+    "name": "Octopus Outdoor Camera",
+    "category": "home-security",
+    "shortDescription": "An outdoor camera that runs on solar power and records in 2K",
+    "image": { "src": "/images/products/outdoor-camera.png", "alt": "Octopus Outdoor Camera on its wall mount" },
+    "bestSeller": false
+  },
+  {
+    "id": "p-008",
+    "slug": "video-doorbell",
+    "name": "Octopus Video Doorbell",
+    "category": "home-security",
+    "shortDescription": "A 2K video doorbell that lets you answer from your phone",
+    "image": { "src": "/images/products/video-doorbell.png", "alt": "Octopus Video Doorbell in white" },
+    "bestSeller": false
+  },
+  {
+    "id": "p-009",
+    "slug": "power-bank",
+    "name": "Octopus Power Bank 10,000 mAh",
+    "category": "accessories",
+    "shortDescription": "A slim power bank with the USB-C cable already built in",
+    "image": { "src": "/images/products/power-bank.png", "alt": "Octopus Power Bank with built-in USB-C cable" },
+    "bestSeller": false
+  },
+  {
+    "id": "p-010",
+    "slug": "power-board",
+    "name": "Octopus Power Board with USB Charging",
+    "category": "accessories",
+    "shortDescription": "A compact power board with four sockets and four USB ports",
+    "image": { "src": "/images/products/power-board.png", "alt": "Octopus Power Board with sockets and USB ports" },
+    "bestSeller": false
+  },
+  {
+    "id": "p-011",
+    "slug": "magnetic-charging-station",
+    "name": "Octopus 3-in-1 Magnetic Charging Station",
+    "category": "accessories",
+    "shortDescription": "A Qi2 stand that charges your phone, watch and earbuds at the same time",
+    "image": { "src": "/images/products/magnetic-charging-station.png", "alt": "Octopus 3-in-1 Magnetic Charging Station in white" },
+    "bestSeller": false
+  }
+]
