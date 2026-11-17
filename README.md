@@ -91,6 +91,10 @@ src/
   without layout shift. Images are lazy-loaded except the LCP image (`preload`), each one declares
   its rendered width with `sizes`, and Next serves AVIF (WebP fallback): the 1.6 MB kitchen PNG
   arrives as a ~12 KB AVIF at card size. Missing assets render as a neutral box of the same size.
+- Banners whose crop changes per breakpoint (Hair Dryer promo, store banner) use
+  `ResponsivePicture`: a `<picture>` with one `<source media>` per breakpoint, built with Next's
+  `getImageProps()` so each file is still optimised. The browser downloads only the file for the
+  current breakpoint (checked with Playwright at 390, 900 and 1440 px).
 - `src/data/data-integrity.test.ts` checks what TypeScript cannot check in JSON: unique ids and
   slugs, known categories, enough products for every gallery and the carousel, and that every image
   referenced in the data exists in `public/`.

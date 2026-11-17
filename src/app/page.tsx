@@ -1,6 +1,7 @@
 import { Button, type ButtonColor } from "@/components/Button";
 import { ChevronIcon } from "@/components/icons";
 import { ImageFrame } from "@/components/ImageFrame";
+import { ResponsivePicture } from "@/components/ResponsivePicture";
 
 // Temporary component preview — replaced by the real homepage in a later step.
 const COLORS: ButtonColor[] = ["primary", "secondary", "ghost-light", "ghost-dark"];
@@ -47,6 +48,17 @@ export default function HomePage() {
         />
         <ImageFrame image={{ alt: "Missing lifestyle photo" }} sizes="33vw" className="aspect-square rounded-card" />
       </div>
+
+      <h2 className="text-h3">ResponsivePicture</h2>
+      <ResponsivePicture
+        image={{
+          alt: "Woman drying her hair with the Octopus Ionic Hair Dryer",
+          mobile: "/images/categories/hair-care-mobile.png",
+          tablet: "/images/categories/hair-care-tablet.png",
+          desktop: "/images/categories/hair-care-desktop.png",
+        }}
+        className="aspect-[3/4] rounded-card tablet:aspect-[5/2] desktop:aspect-[12/5]"
+      />
     </main>
   );
 }
