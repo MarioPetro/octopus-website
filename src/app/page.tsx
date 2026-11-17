@@ -1,4 +1,5 @@
 import { Button, type ButtonColor } from "@/components/Button";
+import { Heading } from "@/components/Heading";
 import { ChevronIcon } from "@/components/icons";
 import { ImageFrame } from "@/components/ImageFrame";
 import { ResponsivePicture } from "@/components/ResponsivePicture";
@@ -32,6 +33,13 @@ export default function HomePage() {
           />
         </div>
       ))}
+
+      <h2 className="text-h3">Heading</h2>
+      <Heading
+        title="Kitchen"
+        description="Powerful appliances for everyday cooking"
+        cta={{ label: "Explore all products", href: "/categories/kitchen" }}
+      />
 
       <h2 className="text-h3">ImageFrame</h2>
       <div className="grid grid-cols-3 gap-4">
