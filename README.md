@@ -50,6 +50,7 @@ Figma token it comes from (e.g. `--color-accent` ← `Alias tokens/Text/Accent`)
   hold the Figma "S" size and switch to "M" and "L" at the tablet and desktop breakpoints, so
   components write a single class.
 - **Layout**: `px-gutter` (16 / 32 / 48 px side margin) and `max-w-content` (1344 px).
+- **Radius**: `rounded-card` is 16 px on mobile and 28 px from tablet, as in Figma.
 
 ## Content and data access
 
@@ -108,9 +109,13 @@ src/
   homepage promotes the Ionic Hair Dryer instead). Every category has one, so the data stays uniform.
 - **A second colour (Silver) is added to the Countertop Blender.** Figma only shows Black, but the
   brief asks for the colour selector to update its selected state, which needs at least two options.
-- **Missing assets use neutral placeholders** of the right aspect ratio: the hero video, the
-  lifestyle images of the Kettle and Indoor Camera feature cards, and the product page gallery and
-  feature images were not part of the exported assets. In the data these images have no `src`.
+- **The large gallery cards show the packshot.** In Figma the first card of the Kitchen and Home
+  Security galleries (Kettle, Indoor Camera) uses a lifestyle photo, which was not part of the
+  exported assets. These cards show the product packshot on the grey card instead, like the other
+  cards, so the page has no empty boxes; adding the photos later is a data change.
+- **Missing assets use neutral placeholders** of the right aspect ratio: the hero video and the
+  product page gallery and feature images were not part of the exported assets. In the data these
+  images have no `src`.
 
 ## Decisions and trade-offs
 
@@ -122,6 +127,14 @@ src/
   `Button` takes a `color` (`primary`, `secondary`, `ghost-light`, `ghost-dark`) and a `variant`
   (`text`, or `icon` for the 40 px round icon-only button, which requires an `aria-label`). With an
   `href` it renders a link, otherwise a `<button>`.
+
+- **One `ProductCard`, laid out by its parent.** Figma has "Card Large", "Card Medium" and "Card
+  Small", but with packshots they share one structure: texts plus image, side by side
+  (`horizontal`), stacked with the texts on top (`vertical`) or with the image on top
+  (`media-top`). The layout often changes between breakpoints (the Indoor Camera card is
+  horizontal on tablet and vertical on desktop), so the card takes `tabletLayout` and
+  `desktopLayout`; on mobile every card is vertical. The card fills its grid cell, so its size is
+  decided by the gallery, not by the card.
 
 - **Satoshi is loaded from the Fontshare CDN, not self-hosted.** The ITF Free Font License allows
   self-hosting on your own site but forbids redistributing the font file, including through a

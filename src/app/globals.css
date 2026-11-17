@@ -80,7 +80,7 @@
   --container-content: 84rem; /* 1344px max content width on desktop */
 
   /* Radii */
-  --radius-card: 1.75rem; /* Card: 28px */
+  --radius-card: 1rem; /* Card: 16px on mobile -> 28px from tablet */
   --radius-button: 1.75rem; /* Button: 28px (a pill at 40px height) */
 }
 
@@ -112,6 +112,7 @@
     --text-h3: 1.75rem;
     --text-subtitle: 1.25rem;
     --spacing-gutter: 2rem;
+    --radius-card: 1.75rem;
   }
 }
 
