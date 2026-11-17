@@ -109,7 +109,7 @@ export function ProductCard({
         image={product.image}
         sizes={imageSizes}
         fit="contain"
-        className={cn("min-h-72 w-full flex-1", tablet.image, desktop.image)}
+        className={cn("min-h-40 w-full flex-1", tablet.image, desktop.image)}
       />
     </article>
   );

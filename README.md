@@ -135,6 +135,12 @@ src/
   horizontal on tablet and vertical on desktop), so the card takes `tabletLayout` and
   `desktopLayout`; on mobile every card is vertical. The card fills its grid cell, so its size is
   decided by the gallery, not by the card.
+- **`CategoryGallery` takes a grid layout, not a category.** Kitchen, Home Security and
+  Accessories are the same component with `layout="feature-wide"`, `"feature-tall"` and `"row"`.
+  Each layout lists its three positions (card height per breakpoint, card layout, image `sizes`),
+  so a new category can reuse an existing grid without changing the component. Card heights are
+  fixed per breakpoint as in Figma, because the height decides how much room is left for the
+  image; the tablet heights were measured from the Figma frame and are approximate.
 
 - **Satoshi is loaded from the Fontshare CDN, not self-hosted.** The ITF Free Font License allows
   self-hosting on your own site but forbids redistributing the font file, including through a

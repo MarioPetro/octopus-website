@@ -1,17 +1,21 @@
 import { Button, type ButtonColor } from "@/components/Button";
+import { CategoryGallery } from "@/components/CategoryGallery";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ChevronIcon } from "@/components/icons";
 import { ImageFrame } from "@/components/ImageFrame";
 import { ProductCard } from "@/components/ProductCard";
-import { getProducts } from "@/services";
 import { ResponsivePicture } from "@/components/ResponsivePicture";
+import { getCategories, getProducts } from "@/services";
+import type { CategorySlug } from "@/types";
 
 // Temporary component preview — replaced by the real homepage in a later step.
 const COLORS: ButtonColor[] = ["primary", "secondary", "ghost-light", "ghost-dark"];
 
 export default async function HomePage() {
-  const products = await getProducts();
+  const [products, categories] = await Promise.all([getProducts(), getCategories()]);
   const bySlug = (slug: string) => products.find((product) => product.slug === slug)!;
+  const byCategory = (slug: CategorySlug) => categories.find((category) => category.slug === slug)!;
+  const productsOf = (slug: CategorySlug) => products.filter((product) => product.category === slug);
 
   return (
     <main className="mx-auto flex max-w-content flex-col gap-6 px-gutter py-12">
@@ -46,30 +50,16 @@ export default async function HomePage() {
         cta={{ label: "Explore all products", href: "/categories/kitchen" }}
       />
 
-      <h2 className="text-h3">ProductCard</h2>
-      <div className="grid gap-2 tablet:grid-cols-2">
-        <div className="tablet:col-span-2 desktop:h-[600px]">
-          <ProductCard product={bySlug("kettle")} tabletLayout="horizontal" />
-        </div>
-        <div className="desktop:h-[880px]">
-          <ProductCard product={bySlug("blender")} />
-        </div>
-        <div className="desktop:h-[880px]">
-          <ProductCard product={bySlug("countertop-blender")} />
-        </div>
-      </div>
-      <div className="grid gap-2 tablet:grid-cols-2 desktop:grid-rows-2">
-        <div className="tablet:col-span-2 desktop:col-span-1 desktop:row-span-2">
-          <ProductCard product={bySlug("indoor-camera")} tabletLayout="horizontal" desktopLayout="vertical" />
-        </div>
-        <ProductCard product={bySlug("outdoor-camera")} desktopLayout="horizontal" />
-        <ProductCard product={bySlug("video-doorbell")} desktopLayout="horizontal" />
-      </div>
-      <div className="grid gap-2 tablet:grid-cols-3">
-        <ProductCard product={bySlug("power-bank")} tabletLayout="media-top" />
-        <ProductCard product={bySlug("power-board")} tabletLayout="media-top" />
-        <ProductCard product={bySlug("magnetic-charging-station")} tabletLayout="media-top" />
-      </div>
+      <h2 className="text-h3">CategoryGallery</h2>
+      <CategoryGallery category={byCategory("kitchen")} products={productsOf("kitchen")} layout="feature-wide" />
+      <CategoryGallery
+        category={byCategory("home-security")}
+        products={productsOf("home-security")}
+        layout="feature-tall"
+      />
+      <CategoryGallery category={byCategory("accessories")} products={productsOf("accessories")} layout="row" />
+
+      <h2 className="text-h3">ProductCard (best seller)</h2>
       <div className="desktop:h-[589px] desktop:w-[1048px]">
         <ProductCard product={bySlug("air-fryer")} tabletLayout="horizontal" category="Kitchen" />
       </div>
