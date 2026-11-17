@@ -86,8 +86,11 @@ src/
 - Every card links to `/products/{slug}`. The product page reads the slug from the URL and calls
   `getProductDetail(slug)`, which is a **mock**: the demo has detail content for the Countertop
   Blender only, so it returns that for any slug (the brief allows every card to open that page).
-- Image sizes are not stored in the data: each component reserves space with a CSS aspect-ratio
-  box taken from the Figma layout, so any image fits without layout shift.
+- Image sizes are not stored in the data: `ImageFrame` reserves space with a CSS aspect-ratio box
+  taken from the Figma layout and `next/image` fills it (`fill` + `object-fit`), so any image fits
+  without layout shift. Images are lazy-loaded except the LCP image (`preload`), each one declares
+  its rendered width with `sizes`, and Next serves AVIF (WebP fallback): the 1.6 MB kitchen PNG
+  arrives as a ~12 KB AVIF at card size. Missing assets render as a neutral box of the same size.
 - `src/data/data-integrity.test.ts` checks what TypeScript cannot check in JSON: unique ids and
   slugs, known categories, enough products for every gallery and the carousel, and that every image
   referenced in the data exists in `public/`.

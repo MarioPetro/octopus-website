@@ -1,5 +1,6 @@
 import { Button, type ButtonColor } from "@/components/Button";
 import { ChevronIcon } from "@/components/icons";
+import { ImageFrame } from "@/components/ImageFrame";
 
 // Temporary component preview — replaced by the real homepage in a later step.
 const COLORS: ButtonColor[] = ["primary", "secondary", "ghost-light", "ghost-dark"];
@@ -30,6 +31,22 @@ export default function HomePage() {
           />
         </div>
       ))}
+
+      <h2 className="text-h3">ImageFrame</h2>
+      <div className="grid grid-cols-3 gap-4">
+        <ImageFrame
+          image={{ src: "/images/products/kettle.png", alt: "Octopus Kettle 1.7 L" }}
+          sizes="33vw"
+          fit="contain"
+          className="aspect-square rounded-card"
+        />
+        <ImageFrame
+          image={{ src: "/images/categories/kitchen-desktop.png", alt: "Woman using a blender" }}
+          sizes="33vw"
+          className="aspect-square rounded-card"
+        />
+        <ImageFrame image={{ alt: "Missing lifestyle photo" }} sizes="33vw" className="aspect-square rounded-card" />
+      </div>
     </main>
   );
 }
