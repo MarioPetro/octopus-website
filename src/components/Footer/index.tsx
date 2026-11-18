@@ -26,7 +26,7 @@ export function Footer({ categories }: FooterProps) {
   }));
 
   return (
-    <footer className="bg-footer px-gutter pt-12 pb-6 text-inverse desktop:pt-15">
+    <footer className="mt-auto bg-footer px-gutter pt-12 pb-6 text-inverse desktop:pt-15">
       <div className="mx-auto flex max-w-content flex-col gap-12 desktop:gap-15">
         <div className="flex flex-col gap-12 tablet:flex-row tablet:items-start tablet:justify-between">
           <Link href="/" className="self-start focus-visible:outline-inverse">

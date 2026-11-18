@@ -50,7 +50,8 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous" />
         <link rel="stylesheet" href={FONTSHARE_CSS} />
       </head>
-      <body>
+      {/* A column at least as tall as the screen: the footer's mt-auto keeps it at the bottom of short pages. */}
+      <body className="flex min-h-dvh flex-col">
         <Header categories={categories} />
         {children}
         <Footer categories={categories} />
