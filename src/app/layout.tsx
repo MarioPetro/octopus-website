@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Footer } from "@/components/Footer";
+import { getCategories } from "@/services";
 import "./globals.css";
 
 // Satoshi is served by the Fontshare CDN: its licence does not allow the font file
@@ -15,7 +17,10 @@ export const metadata: Metadata = {
     "Octopus consumer electronics for the kitchen, home security, hair care and everyday accessories.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  // The footer (and later the navbar) is on every page, so the layout loads the categories.
+  const categories = await getCategories();
+
   return (
     <html lang="en">
       <head>
@@ -24,7 +29,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous" />
         <link rel="stylesheet" href={FONTSHARE_CSS} />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Footer categories={categories} />
+      </body>
     </html>
   );
 }
