@@ -78,10 +78,20 @@
   /* Layout */
   --spacing-gutter: 1rem; /* page side margin: 16 mobile -> 32 tablet -> 48 desktop */
   --container-content: 84rem; /* 1344px max content width on desktop */
+  /* Space the sticky header takes at the top of the page: 75 mobile -> 91 tablet -> 96 desktop.
+     A full-bleed hero uses it as a negative margin to slide under the navbar, as in Figma. */
+  --spacing-header: 4.6875rem;
 
   /* Radii */
   --radius-card: 1rem; /* Card: 16px on mobile -> 28px from tablet */
   --radius-button: 1.75rem; /* Button: 28px (a pill at 40px height) */
+  --radius-navbar: 2rem; /* Navbar pill: 32px */
+
+  /* Navbar (Figma: Navbar/Background #FFFFFF 85%, drop shadow 0 0 16 8 #000 8%, background blur 64).
+     Figma's background blur is twice the CSS radius, so 64 becomes blur(32px). */
+  --color-navbar: rgb(255 255 255 / 85%);
+  --shadow-navbar: 0 0 16px 8px rgb(0 0 0 / 8%);
+  --blur-navbar: 32px;
 }
 
 /* Satoshi (loaded from the Fontshare CDN in layout.tsx), then a metric-matched fallback. */
@@ -112,6 +122,7 @@
     --text-h3: 1.75rem;
     --text-subtitle: 1.25rem;
     --spacing-gutter: 2rem;
+    --spacing-header: 5.6875rem;
     --radius-card: 1.75rem;
   }
 }
@@ -123,6 +134,7 @@
     --text-h3: 2rem;
     --text-subtitle: 1.5rem;
     --spacing-gutter: 3rem;
+    --spacing-header: 6rem; /* 16 + 64px pill + 16 */
   }
 }
 

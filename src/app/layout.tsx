@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
 import { getCategories } from "@/services";
 import "./globals.css";
 
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
-  // The footer (and later the navbar) is on every page, so the layout loads the categories.
+  // The header and the footer are on every page, so the layout loads the categories once for both.
   const categories = await getCategories();
 
   return (
@@ -30,6 +31,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <link rel="stylesheet" href={FONTSHARE_CSS} />
       </head>
       <body>
+        <Header categories={categories} />
         {children}
         <Footer categories={categories} />
       </body>
