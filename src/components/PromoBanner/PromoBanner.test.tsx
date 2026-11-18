@@ -25,7 +25,7 @@ describe("PromoBanner", () => {
   it("links to the promoted page", () => {
     render(<PromoBanner {...props} />);
 
-    expect(screen.getByRole("link", { name: "Learn more" })).toHaveAttribute("href", "/products/ionic-hair-dryer");
+    expect(screen.getByRole("link", { name: `Learn more about ${props.title}` })).toHaveAttribute("href", "/products/ionic-hair-dryer");
   });
 
   it("shows the photo with its alt text", () => {

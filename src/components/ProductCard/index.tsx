@@ -219,9 +219,12 @@ export function ProductCard(props: ProductCardProps) {
           <h3 className={cn("text-title-lg font-bold leading-[1.1]", DESKTOP.title?.[position.desktop])}>{title}</h3>
           <p className="text-body font-book text-secondary desktop:text-title">{description}</p>
         </div>
-        {/* Starts with the visible text (WCAG 2.5.3) and tells the many "Learn more" links apart. */}
-        <Button href={href} aria-label={`Learn more about ${title}`}>
-          Learn more
+        {/* The hidden text tells the many "Learn more" links apart, and the name still starts with
+            the visible text (WCAG 2.5.3). It is text, not aria-label, because Lighthouse's link
+            text audit (SEO) reads only the link's text. */}
+        <Button href={href}>
+          {/* The space stays outside the span: a leading space inside it is dropped from the name. */}
+          Learn more <span className="sr-only">about {title}</span>
         </Button>
       </div>
       {!props.cover && media}

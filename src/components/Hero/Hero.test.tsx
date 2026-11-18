@@ -24,6 +24,6 @@ describe("Hero", () => {
     render(<Hero {...PROPS} />);
 
     expect(screen.getByText("A powerful ionic hair dryer")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Learn more" })).toHaveAttribute("href", "/products/ionic-hair-dryer");
+    expect(screen.getByRole("link", { name: "Learn more about Octopus Ionic Hair Dryer" })).toHaveAttribute("href", "/products/ionic-hair-dryer");
   });
 });

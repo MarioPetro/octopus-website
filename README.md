@@ -214,6 +214,11 @@ src/
   name; on product tiles the description is read after it, as the link's description. As in the Figma prototype, on hover the
   packshot zooms in by 5% inside its frame; keyboard focus does the same, and the animation is
   skipped for users who prefer reduced motion.
+- **"Learn more" links carry hidden text, not an `aria-label`.** The homepage repeats "Learn more"
+  (cards, hero, promo banner), so each link adds the product or section title in a visually
+  hidden span ("Learn more about Octopus Blender").
+  Screen readers announce the same name either way, but Lighthouse's SEO audit "Links do not have
+  descriptive text" reads only the link's text, so with `aria-label` it flagged all 16 links.
 - **Horizontal cards use one left padding (40px).** In Figma the large horizontal cards (best
   sellers, Kettle) have 64px on tablet and 80px on desktop; keeping a single value avoids a size
   prop on `ProductCard`, at the cost of the text starting slightly further left on those cards.

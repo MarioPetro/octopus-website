@@ -24,7 +24,10 @@ export function Hero({ title, description, cta }: HeroProps) {
             </h1>
             <p className="max-w-[550px] text-subtitle font-book text-secondary">{description}</p>
           </div>
-          <Button href={cta.href}>{cta.label}</Button>
+          {/* Hidden text: the homepage repeats "Learn more", Lighthouse's link text audit reads only text. */}
+          <Button href={cta.href}>
+            {cta.label} <span className="sr-only">about {title}</span>
+          </Button>
         </div>
       </div>
     </section>
