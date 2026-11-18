@@ -78,6 +78,9 @@
   /* Layout */
   --spacing-gutter: 1rem; /* page side margin: 16 mobile -> 32 tablet -> 48 desktop */
   --container-content: 84rem; /* 1344px max content width on desktop */
+  /* Space between the page sections: 80 mobile -> 120 tablet -> 180 desktop. Figma's spacing
+     varies from section to section; these are its most frequent values, made uniform. */
+  --spacing-section: 5rem;
   /* Space the sticky header takes at the top of the page: 75 mobile -> 91 tablet -> 96 desktop.
      A full-bleed hero uses it as a negative margin to slide under the navbar, as in Figma. */
   --spacing-header: 4.6875rem;
@@ -123,6 +126,7 @@
     --text-subtitle: 1.25rem;
     --spacing-gutter: 2rem;
     --spacing-header: 5.6875rem;
+    --spacing-section: 7.5rem;
     --radius-card: 1.75rem;
   }
 }
@@ -135,6 +139,7 @@
     --text-subtitle: 1.5rem;
     --spacing-gutter: 3rem;
     --spacing-header: 6rem; /* 16 + 64px pill + 16 */
+    --spacing-section: 11.25rem; /* 180px */
   }
 }
 
