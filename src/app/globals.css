@@ -17,6 +17,7 @@
   --color-footer: #de2027; /* Alias tokens/Background/Footer */
   --color-card: #f9f9f9; /* Card/Background/Primary */
   --color-stroke: #e8e8e8; /* Button/Special/Stroke/Default — light borders */
+  --color-swatch-stroke: rgb(0 0 0 / 8%); /* Color Selection/Stroke — keeps light swatches visible */
 
   /* Buttons. Figma's "Special" type is our "secondary". */
   --color-button-primary: #de2027; /* Button/Primary/Background/Default */

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ImageFrame } from "@/components/ImageFrame";
+import { ProductInfo } from "@/components/ProductInfo";
 import { getProductDetail, getProducts } from "@/services";
 import { baseOpenGraph } from "../../shared-metadata";
 
@@ -69,12 +70,13 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
             aria-labelledby="product-title"
             className="px-gutter tablet:sticky tablet:top-0 tablet:col-start-2 tablet:row-span-2 tablet:row-start-1 tablet:self-start tablet:px-0 tablet:pt-40"
           >
-            {/* Placeholder until ProductInfo: title and description only. */}
-            <div className="flex flex-col gap-4 desktop:w-[355px]">
-              <h1 id="product-title" className="text-h2">
-                {product.name}
-              </h1>
-              <p className="text-body font-book text-secondary">{product.description}</p>
+            <div className="desktop:w-[355px]">
+              <ProductInfo
+                titleId="product-title"
+                name={product.name}
+                description={product.description}
+                colours={product.colours}
+              />
             </div>
           </section>
 
