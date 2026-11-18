@@ -1,5 +1,6 @@
 import { BestSellersCarousel } from "@/components/BestSellersCarousel";
 import { Button, type ButtonColor } from "@/components/Button";
+import { CategoryExplorer } from "@/components/CategoryExplorer";
 import { CategoryGallery } from "@/components/CategoryGallery";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ChevronIcon } from "@/components/icons";
@@ -80,6 +81,8 @@ export default async function HomePage() {
             />
             <ImageFrame image={{ alt: "Missing lifestyle photo" }} sizes="33vw" className="aspect-square rounded-card" />
           </div>
+
+          <CategoryExplorer categories={categories} />
 
           <h2 className="text-h3">PromoBanner</h2>
         </div>

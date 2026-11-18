@@ -170,6 +170,11 @@ src/
   red backgrounds. On tablet the banner keeps a 500px height while it widens up to 1199px, so the
   photo is shown whole (`object-fit: contain`) on the right instead of being cropped, over a fill
   sampled from the photo's own red (darker than the brand red), into which its left edge fades.
+- **Category tiles are one link each, with a decorative image.** In "Explore all categories" the
+  packshot has an empty alt and the category name is the link text, so a screen reader announces
+  "Kitchen, link" once instead of an image and a name. As in the Figma prototype, on hover the
+  packshot zooms in by 5% inside its frame; keyboard focus does the same, and the animation is
+  skipped for users who prefer reduced motion.
 - **Horizontal cards use one left padding (40px).** In Figma the large horizontal cards (best
   sellers, Kettle) have 64px on tablet and 80px on desktop; keeping a single value avoids a size
   prop on `ProductCard`, at the cost of the text starting slightly further left on those cards.
