@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: PageProps<"/products/[slug]">
 /** The structure of the product page; its contents come from the mock API. */
 export default async function ProductPage({ params }: PageProps<"/products/[slug]">) {
   const [product, products] = await Promise.all([productDetail(params), getProducts()]);
-  const [packshot, ...photos] = product.gallery;
+  const photos = product.gallery;
 
   return (
     // Clips the packshot background, which runs to the window's left edge on desktop.
@@ -69,7 +69,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
               className="absolute inset-0 bg-card tablet:-left-gutter tablet:rounded-b-[24px] desktop:-left-[100vw] desktop:rounded-none"
             />
             <ImageFrame
-              image={packshot}
+              image={product.image}
               sizes={COLUMN_SIZES}
               fit="contain"
               preload

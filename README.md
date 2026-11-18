@@ -102,8 +102,8 @@ src/
   Blender only, so it returns that for any slug (the brief allows every card to open that page).
   A slug that is not in `products.json` is a 404.
 - On the product page the structure is in `page.tsx` (packshot, info, photo, feature cards, photo,
-  specifications, best sellers) and every content comes from the product detail: gallery photos,
-  features, specs, downloads and colours. The best sellers are the products with `bestSeller`, as
+  specifications, best sellers) and every content comes from the product detail: the packshot
+  (`image`), the gallery photos, features, specs, downloads and colours. The best sellers are the products with `bestSeller`, as
   on the homepage.
 - Image sizes are not stored in the data: `ImageFrame` reserves space with a CSS aspect-ratio box
   taken from the Figma layout and `next/image` fills it (`fill` + `object-fit`), so any image fits
@@ -131,9 +131,8 @@ src/
   Security galleries (Kettle, Indoor Camera) uses a lifestyle photo, which was not part of the
   exported assets. These cards show the product packshot on the grey card instead, like the other
   cards, so the page has no empty boxes; adding the photos later is a data change.
-- **Missing assets use neutral placeholders** of the right aspect ratio: the hero video and the
-  product page gallery and feature images were not part of the exported assets. In the data these
-  images have no `src`.
+- **Missing assets use neutral placeholders** of the right aspect ratio: the hero video was not part
+  of the exported assets. An image with no `src` in the data renders as that placeholder.
 - **The navigation collapses into the menu below 1200px, as the brief asks.** The Figma tablet
   frame still shows the full navigation; the brief's acceptance criterion wins here.
 - **The best sellers carousel has no pagination dots, as in Figma.** The brief mentions dots, but
