@@ -3,6 +3,7 @@ import { Button, type ButtonColor } from "@/components/Button";
 import { CategoryExplorer } from "@/components/CategoryExplorer";
 import { CategoryGallery } from "@/components/CategoryGallery";
 import { SectionHeading } from "@/components/SectionHeading";
+import { Hero } from "@/components/Hero";
 import { ChevronIcon } from "@/components/icons";
 import { ImageFrame } from "@/components/ImageFrame";
 import { PromoBanner } from "@/components/PromoBanner";
@@ -20,11 +21,17 @@ export default async function HomePage() {
 
   return (
     // Content column as in Figma: side margin outside, 1344px column centred inside.
-    // The promo banner sits outside the column because it spans the full window width.
-    <main className="flex flex-col gap-6 py-12">
+    // The hero and the promo banner sit outside the column because they span the full window width.
+    // No top padding: the hero starts at the top of the window, under the sticky navbar.
+    <main className="flex flex-col gap-6 pb-12">
+      <Hero
+        title="Octopus Ionic Hair Dryer"
+        description="A powerful ionic hair dryer with a 110,000 RPM motor for fast drying and less frizz"
+        cta={{ label: "Learn more", href: "/products/ionic-hair-dryer" }}
+      />
       <div className="px-gutter">
         <div className="mx-auto flex max-w-content flex-col gap-6">
-          <h1 className="text-h3">Buttons</h1>
+          <h2 className="text-h3">Buttons</h2>
           {COLORS.map((color) => (
             <div
               key={color}
