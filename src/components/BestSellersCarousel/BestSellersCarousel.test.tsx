@@ -61,6 +61,21 @@ describe("BestSellersCarousel", () => {
     expect(within(items[1]).getByRole("heading", { name: "Octopus Indoor Camera" })).toBeInTheDocument();
   });
 
+  it("in the compact variant shows tiles: one link per product, no category or Learn more", () => {
+    render(<BestSellersCarousel variant="compact" products={products} />);
+
+    const items = within(screen.getByRole("list")).getAllByRole("listitem");
+    expect(items).toHaveLength(3);
+    expect(within(items[1]).getByRole("link", { name: "Octopus Indoor Camera" })).toHaveAttribute(
+      "href",
+      "/products/indoor-camera",
+    );
+    expect(within(items[1]).getByText("Octopus Indoor Camera description")).toBeInTheDocument();
+    expect(screen.queryByText("Home Security")).not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /learn more/i })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Next product" })).toBeInTheDocument();
+  });
+
   it("disables the previous arrow on the first product", () => {
     const { list, prev, next } = renderCarousel();
     setScroll(list, 0);

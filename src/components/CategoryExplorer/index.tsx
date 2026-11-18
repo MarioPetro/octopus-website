@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { ImageFrame } from "@/components/ImageFrame";
+import { ProductTile } from "@/components/ProductTile";
 import type { Category } from "@/types";
 
 export type CategoryExplorerProps = {
@@ -15,15 +14,13 @@ export function CategoryExplorer({ categories }: CategoryExplorerProps) {
       <ul className="grid grid-cols-2 gap-x-4 gap-y-6 tablet:grid-cols-4 desktop:gap-6">
         {categories.map((category) => (
           <li key={category.id}>
-            <Link href={`/categories/${category.slug}`} className="group flex flex-col gap-4 text-center">
-              <ImageFrame
-                image={category.image}
-                sizes="(min-width: 810px) 25vw, 50vw"
-                fit="contain"
-                className="aspect-square rounded-card motion-safe:[&_img]:transition-transform motion-safe:[&_img]:duration-300 group-hover:[&_img]:scale-105 group-focus-visible:[&_img]:scale-105"
-              />
-              <span className="text-title font-book">{category.name}</span>
-            </Link>
+            <ProductTile
+              variant="category"
+              title={category.name}
+              href={`/categories/${category.slug}`}
+              image={category.image}
+              imageSizes="(min-width: 810px) 25vw, 50vw"
+            />
           </li>
         ))}
       </ul>

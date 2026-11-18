@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { BestSellersCarousel } from "@/components/BestSellersCarousel";
+import { Container } from "@/components/Container";
 import { FeatureGallery } from "@/components/FeatureGallery";
 import { ImageFrame } from "@/components/ImageFrame";
 import { ProductDetails } from "@/components/ProductDetails";
@@ -45,7 +47,7 @@ export async function generateMetadata({ params }: PageProps<"/products/[slug]">
 
 /** The structure of the product page; its contents come from the mock API. */
 export default async function ProductPage({ params }: PageProps<"/products/[slug]">) {
-  const product = await productDetail(params);
+  const [product, products] = await Promise.all([productDetail(params), getProducts()]);
   const [packshot, ...photos] = product.gallery;
 
   return (
@@ -93,6 +95,11 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
             <ProductDetails specs={product.specs} downloads={product.downloads} />
           </div>
         </div>
+      </div>
+      <div className="py-10 tablet:py-20">
+        <Container>
+          <BestSellersCarousel variant="compact" products={products.filter((item) => item.bestSeller)} />
+        </Container>
       </div>
       <StickyBuyBar />
     </main>

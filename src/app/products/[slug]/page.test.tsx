@@ -18,6 +18,15 @@ describe("Product page", () => {
     expect(h1s[0]).toHaveTextContent("Octopus Countertop Blender");
   });
 
+  it("shows the sections in the Figma order, ending with the best sellers", async () => {
+    render(await ProductPage(params("countertop-blender")));
+
+    const sections = ["Features", "Product details", "Best sellers"].map((name) => screen.getByRole("region", { name }));
+    const follows = (a: Element, b: Element) => Boolean(a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(follows(sections[0], sections[1])).toBe(true);
+    expect(follows(sections[1], sections[2])).toBe(true);
+  });
+
   it("sets the title, description and Open Graph tags from the product", async () => {
     const metadata = await generateMetadata(params("countertop-blender"));
 

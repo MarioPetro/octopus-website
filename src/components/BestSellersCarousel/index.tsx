@@ -4,16 +4,23 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/Button";
 import { ChevronIcon } from "@/components/icons";
 import { ProductCard } from "@/components/ProductCard";
+import { ProductTile } from "@/components/ProductTile";
 import type { Category, Product } from "@/types";
+import { cn } from "@/utils/cn";
 
 export type BestSellersCarouselProps = {
   products: Product[];
-  /** To show each product's category name. */
-  categories: Category[];
+  /** To show each product's category name on the `feature` cards. */
+  categories?: Category[];
+  /**
+   * `feature`: large ProductCards with category, description and "Learn more" (homepage).
+   * `compact`: small ProductTiles, the whole tile a link (product page).
+   */
+  variant?: "feature" | "compact";
 };
 
 /** A natively scrolling row of cards with scroll snapping; the arrows track the scroll position. */
-export function BestSellersCarousel({ products, categories }: BestSellersCarouselProps) {
+export function BestSellersCarousel({ products, categories = [], variant = "feature" }: BestSellersCarouselProps) {
   const listRef = useRef<HTMLUListElement>(null);
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
@@ -61,24 +68,43 @@ export function BestSellersCarousel({ products, categories }: BestSellersCarouse
           cards aligned with the page content. */}
       <ul
         ref={listRef}
-        className="-mx-gutter flex snap-x snap-mandatory scroll-px-gutter gap-4 overflow-x-auto px-gutter [scrollbar-width:none] desktop:gap-6 [&::-webkit-scrollbar]:hidden"
+        // overflow-x: auto alone makes overflow-y auto too: glyphs reaching below the last line
+        // (2px) would let the row scroll vertically under the mouse. Only the x axis scrolls.
+        className={cn(
+          "-mx-gutter flex snap-x snap-mandatory scroll-px-gutter gap-4 overflow-x-auto overflow-y-hidden px-gutter [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+          // Room for those descenders, which overflow-y: hidden would otherwise clip.
+          variant === "feature" ? "desktop:gap-6" : "pb-1",
+        )}
       >
-        {products.map((product) => (
-          <li
-            key={product.id}
-            className="h-[512px] w-[320px] shrink-0 snap-start tablet:h-[413px] tablet:w-[688px] desktop:h-[589px] desktop:w-[1048px]"
-          >
-            <ProductCard
-              tag={categoryName(product)}
-              title={product.name}
-              description={product.shortDescription}
-              href={`/products/${product.slug}`}
-              image={product.image}
-              textPosition={{ base: "top", tablet: "left" }}
-              imageSizes="(min-width: 1200px) 524px, (min-width: 810px) 344px, 320px"
-            />
-          </li>
-        ))}
+        {products.map((product) =>
+          variant === "feature" ? (
+            <li
+              key={product.id}
+              className="h-[512px] w-[320px] shrink-0 snap-start tablet:h-[413px] tablet:w-[688px] desktop:h-[589px] desktop:w-[1048px]"
+            >
+              <ProductCard
+                tag={categoryName(product)}
+                title={product.name}
+                description={product.shortDescription}
+                href={`/products/${product.slug}`}
+                image={product.image}
+                textPosition={{ base: "top", tablet: "left" }}
+                imageSizes="(min-width: 1200px) 524px, (min-width: 810px) 344px, 320px"
+              />
+            </li>
+          ) : (
+            <li key={product.id} className="w-[180px] shrink-0 snap-start tablet:w-[264px]">
+              <ProductTile
+                variant="product"
+                title={product.name}
+                description={product.shortDescription}
+                href={`/products/${product.slug}`}
+                image={product.image}
+                imageSizes="(min-width: 810px) 216px, 132px"
+              />
+            </li>
+          ),
+        )}
       </ul>
       <div className="flex justify-end gap-2">
         <Button
