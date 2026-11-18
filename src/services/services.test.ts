@@ -17,7 +17,7 @@ describe("getProducts (mock)", () => {
     const products = await getProducts();
     expect(products.length).toBeGreaterThan(0);
     const kitchen = products.filter((product) => product.category === "kitchen");
-    expect(kitchen.slice(0, 3).map((product) => product.slug)).toEqual(["blender", "kettle", "countertop-blender"]);
+    expect(kitchen.slice(0, 3).map((product) => product.slug)).toEqual(["kettle", "blender", "countertop-blender"]);
   });
 });
 

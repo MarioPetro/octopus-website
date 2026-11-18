@@ -127,10 +127,6 @@ src/
   homepage promotes the Ionic Hair Dryer instead). Every category has one, so the data stays uniform.
 - **A second colour (Silver) is added to the Countertop Blender.** Figma only shows Black, but the
   brief asks for the colour selector to update its selected state, which needs at least two options.
-- **The large gallery cards show the packshot.** In Figma the first card of the Kitchen and Home
-  Security galleries (Kettle, Indoor Camera) uses a lifestyle photo, which was not part of the
-  exported assets. These cards show the product packshot on the grey card instead, like the other
-  cards, so the page has no empty boxes; adding the photos later is a data change.
 - **Missing assets use neutral placeholders** of the right aspect ratio: the hero video was not part
   of the exported assets. An image with no `src` in the data renders as that placeholder.
 - **The navigation collapses into the menu below 1200px, as the brief asks.** The Figma tablet

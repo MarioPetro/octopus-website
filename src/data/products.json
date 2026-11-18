@@ -1,13 +1,13 @@
 [
   {
-    "id": "p-002",
-    "slug": "blender",
-    "name": "Octopus Blender",
+    "id": "p-001",
+    "slug": "kettle",
+    "name": "Octopus Kettle 1.7 L",
     "category": "kitchen",
-    "shortDescription": "A portable blender that blends straight into a cup you can take with you",
-    "image": { "src": "/images/products/blender.png", "alt": "Octopus portable Blender with travel cup" },
+    "shortDescription": "A 1.7 L kettle that boils fast on 1800W, with a body that stays cool to the touch",
+    "image": { "src": "/images/products/kettle.png", "alt": "Octopus Kettle 1.7 L in dark steel" },
     "featureImage": {
-      "alt": "Woman making a red smoothie with the Octopus Blender on a kitchen counter",
+      "alt": "Hand pouring hot water from the Octopus Kettle into a cup on a kitchen table",
       "mobile": "/images/categories/kitchen-mobile.png",
       "tablet": "/images/categories/kitchen-tablet.png",
       "desktop": "/images/categories/kitchen-desktop.png"
@@ -15,12 +15,12 @@
     "bestSeller": true
   },
   {
-    "id": "p-001",
-    "slug": "kettle",
-    "name": "Octopus Kettle 1.7 L",
+    "id": "p-002",
+    "slug": "blender",
+    "name": "Octopus Blender",
     "category": "kitchen",
-    "shortDescription": "A 1.7 L kettle that boils fast on 1800W, with a body that stays cool to the touch",
-    "image": { "src": "/images/products/kettle.png", "alt": "Octopus Kettle 1.7 L in dark steel" },
+    "shortDescription": "A portable blender that blends straight into a cup you can take with you",
+    "image": { "src": "/images/products/blender.png", "alt": "Octopus portable Blender with travel cup" },
     "bestSeller": true
   },
   {
@@ -51,28 +51,18 @@
     "bestSeller": true
   },
   {
-    "id": "p-008",
-    "slug": "video-doorbell",
-    "name": "Octopus Video Doorbell",
-    "category": "home-security",
-    "shortDescription": "A 2K video doorbell that lets you answer from your phone",
-    "image": { "src": "/images/products/video-doorbell.png", "alt": "Octopus Video Doorbell in white" },
-    "featureImage": {
-      "alt": "Octopus Video Doorbell mounted on a wall, a finger pressing its button",
-      "mobile": "/images/categories/home-security-mobile.png",
-      "tablet": "/images/categories/home-security-tablet.png",
-      "desktop": "/images/categories/home-security-mobile.png",
-      "mirrored": true
-    },
-    "bestSeller": false
-  },
-  {
     "id": "p-006",
     "slug": "indoor-camera",
     "name": "Octopus Indoor Camera",
     "category": "home-security",
     "shortDescription": "A 2K indoor camera that pans to cover the whole room and tracks movement as it happens",
     "image": { "src": "/images/products/indoor-camera.png", "alt": "Octopus Indoor Camera, white pan-tilt camera" },
+    "featureImage": {
+      "alt": "Octopus Indoor Camera on a wooden shelf against a light wall",
+      "mobile": "/images/categories/home-security-mobile.png",
+      "tablet": "/images/categories/home-security-tablet.png",
+      "desktop": "/images/categories/home-security-desktop.png"
+    },
     "bestSeller": true
   },
   {
@@ -82,6 +72,15 @@
     "category": "home-security",
     "shortDescription": "An outdoor camera that runs on solar power and records in 2K",
     "image": { "src": "/images/products/outdoor-camera.png", "alt": "Octopus Outdoor Camera on its wall mount" },
+    "bestSeller": false
+  },
+  {
+    "id": "p-008",
+    "slug": "video-doorbell",
+    "name": "Octopus Video Doorbell",
+    "category": "home-security",
+    "shortDescription": "A 2K video doorbell that lets you answer from your phone",
+    "image": { "src": "/images/products/video-doorbell.png", "alt": "Octopus Video Doorbell in white" },
     "bestSeller": false
   },
   {
