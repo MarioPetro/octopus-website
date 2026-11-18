@@ -72,6 +72,16 @@ describe("products.json", () => {
       expect(product.image.alt.length, `${product.slug} has no alt text`).toBeGreaterThan(0);
     }
   });
+
+  it("gives every feature photo an alt text and a file for each breakpoint", () => {
+    for (const { slug, featureImage } of productRecords) {
+      if (!featureImage) continue;
+      expect(featureImage.alt.length, `${slug} feature photo has no alt text`).toBeGreaterThan(0);
+      for (const src of [featureImage.mobile, featureImage.tablet, featureImage.desktop]) {
+        expect(existsSync(path.join(process.cwd(), "public", src)), `missing image ${src}`).toBe(true);
+      }
+    }
+  });
 });
 
 describe("product-detail.json", () => {

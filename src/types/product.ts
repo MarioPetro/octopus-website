@@ -1,5 +1,5 @@
 import type { CategorySlug } from "./category";
-import type { Image, Link } from "./media";
+import type { Image, Link, ResponsiveImage } from "./media";
 
 /** A product as shown in cards and carousels. Its page lives at `/products/${slug}`. */
 export type Product = {
@@ -8,8 +8,19 @@ export type Product = {
   name: string;
   category: CategorySlug;
   shortDescription: string;
+  /** Packshot (the product alone on a plain background), shown whole inside the card. */
   image: Image;
+  /**
+   * Optional lifestyle photo, cropped per breakpoint, that fills the whole card when the product
+   * is the large first card of a homepage gallery. Without it, that card shows the packshot.
+   */
+  featureImage?: FeatureImage;
   bestSeller: boolean;
+};
+
+export type FeatureImage = ResponsiveImage & {
+  /** Shows the photo flipped horizontally, to move its subject to the other side of the card. */
+  mirrored?: boolean;
 };
 
 export type Colour = {

@@ -19,8 +19,8 @@ describe("getProducts (mock)", () => {
     // The first three kitchen products are the ones shown in the Kitchen gallery.
     const kitchen = products.filter((product) => product.category === "kitchen");
     expect(kitchen.slice(0, 3).map((product) => product.slug)).toEqual([
-      "kettle",
       "blender",
+      "kettle",
       "countertop-blender",
     ]);
   });
