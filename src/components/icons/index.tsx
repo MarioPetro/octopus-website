@@ -57,6 +57,14 @@ export function MenuIcon(props: IconProps) {
   );
 }
 
+export function DownloadIcon(props: IconProps) {
+  return (
+    <OutlineIcon strokeLinejoin="round" {...props}>
+      <path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19.5h14" />
+    </OutlineIcon>
+  );
+}
+
 export function CloseIcon(props: IconProps) {
   return (
     <OutlineIcon {...props}>

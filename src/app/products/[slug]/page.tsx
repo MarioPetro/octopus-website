@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { FeatureGallery } from "@/components/FeatureGallery";
 import { ImageFrame } from "@/components/ImageFrame";
+import { ProductDetails } from "@/components/ProductDetails";
 import { ProductInfo } from "@/components/ProductInfo";
 import { StickyBuyBar } from "@/components/StickyBuyBar";
 import { getProductDetail, getProducts } from "@/services";
@@ -89,6 +90,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
             {photos.slice(1).map((photo) => (
               <ImageFrame key={photo.alt} image={photo} sizes={COLUMN_SIZES} className="aspect-[3/4] rounded-card" />
             ))}
+            <ProductDetails specs={product.specs} downloads={product.downloads} />
           </div>
         </div>
       </div>
