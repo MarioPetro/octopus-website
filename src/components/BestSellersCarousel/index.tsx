@@ -60,8 +60,7 @@ export function BestSellersCarousel({ products, categories }: BestSellersCarouse
     });
   };
 
-  const categoryName = (product: Product) =>
-    categories.find((category) => category.slug === product.category)?.name;
+  const categoryName = (product: Product) => categories.find((category) => category.slug === product.category)?.name;
 
   return (
     <section aria-labelledby="best-sellers-title" className="flex flex-col gap-8 tablet:gap-10">
@@ -80,9 +79,12 @@ export function BestSellersCarousel({ products, categories }: BestSellersCarouse
             className="h-[512px] w-[320px] shrink-0 snap-start tablet:h-[413px] tablet:w-[688px] desktop:h-[589px] desktop:w-[1048px]"
           >
             <ProductCard
-              product={product}
-              category={categoryName(product)}
-              tabletLayout="horizontal"
+              tag={categoryName(product)}
+              title={product.name}
+              description={product.shortDescription}
+              href={`/products/${product.slug}`}
+              image={product.image}
+              textPosition={{ base: "top", tablet: "left" }}
               imageSizes="(min-width: 1200px) 524px, (min-width: 810px) 344px, 320px"
             />
           </li>
