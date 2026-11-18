@@ -125,7 +125,12 @@ Where the brief and Figma differ, or leave a gap:
 
 ## Lighthouse reports (mobile)
 
-TODO <!-- screenshots or exported reports for the Homepage and the product page -->
+Run with Chrome DevTools Lighthouse 13.5 (mobile) on the live deployment.
+
+| Page | Performance | Accessibility | Best Practices | SEO | Report |
+| --- | --- | --- | --- | --- | --- |
+| [Homepage](https://octopus-website-flame.vercel.app/) | 94 | 100 | 100 | 100 | [PDF](docs/lighthouse/homepage-mobile.pdf) |
+| [Countertop Blender](https://octopus-website-flame.vercel.app/products/countertop-blender) | 98 | 100 | 100 | 100 | [PDF](docs/lighthouse/product-page-mobile.pdf) |
 
 ## AI usage
 
