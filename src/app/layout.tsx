@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { getCategories } from "@/services";
 import "./globals.css";
+import { baseOpenGraph } from "./shared-metadata";
 
 // Satoshi's licence does not allow redistributing the file, so it comes from the Fontshare CDN.
 // The variable font is needed for Figma's 470 weight.
@@ -22,11 +23,8 @@ export const metadata: Metadata = {
     template: "%s | Octopus",
   },
   description: DESCRIPTION,
-  // Metadata merges shallowly: a page that sets `openGraph` must repeat all of its fields.
   openGraph: {
-    type: "website",
-    siteName: "Octopus",
-    locale: "en_GB",
+    ...baseOpenGraph,
     url: "/",
     title: "Octopus",
     description: DESCRIPTION,
