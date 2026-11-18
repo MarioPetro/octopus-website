@@ -61,13 +61,14 @@ export function BestSellersCarousel({ products, categories = [], variant = "feat
 
   return (
     <section aria-labelledby="best-sellers-title" className="flex flex-col gap-8 tablet:gap-10">
-      <h2 id="best-sellers-title" className="text-h3">
+      <h2 id="best-sellers-title" data-reveal="text" className="text-h3">
         Best sellers
       </h2>
       {/* Bleeds to the window edges so the next card peeks in; scroll-padding keeps snapped
           cards aligned with the page content. */}
       <ul
         ref={listRef}
+        data-reveal="media"
         // overflow-x: auto alone makes overflow-y auto too: glyphs reaching below the last line
         // (2px) would let the row scroll vertically under the mouse. Only the x axis scrolls.
         className={cn(
@@ -106,7 +107,7 @@ export function BestSellersCarousel({ products, categories = [], variant = "feat
           ),
         )}
       </ul>
-      <div className="flex justify-end gap-2">
+      <div data-reveal="media" className="flex justify-end gap-2">
         <Button
           color="secondary"
           variant="icon"

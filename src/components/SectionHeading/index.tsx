@@ -8,7 +8,7 @@ export type SectionHeadingProps = {
 
 export function SectionHeading({ title, description, cta }: SectionHeadingProps) {
   return (
-    <header className="mx-auto flex max-w-[550px] flex-col items-center gap-8 text-center">
+    <header data-reveal="text" className="mx-auto flex max-w-[550px] flex-col items-center gap-8 text-center">
       <div className="flex flex-col gap-2">
         {/* Figma uses the H1 style on desktop: the size changes, not the heading level. */}
         <h2 className="text-h2 desktop:text-h1">{title}</h2>

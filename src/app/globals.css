@@ -142,6 +142,38 @@
     }
   }
 
+  /* Scroll reveal (Figma "Motion Documentation"), driven by the Reveal component: the group's
+     marked elements start transparent and lower, then rise together. Media (cards, images) travel
+     60px, text-only blocks 30px. With reduced motion only the fade remains. */
+  [data-reveal-state="pending"]:is([data-reveal]),
+  [data-reveal-state="pending"] [data-reveal] {
+    opacity: 0;
+  }
+
+  [data-reveal-state="pending"]:is([data-reveal="media"]),
+  [data-reveal-state="pending"] [data-reveal="media"] {
+    translate: 0 60px;
+  }
+
+  [data-reveal-state="pending"]:is([data-reveal="text"]),
+  [data-reveal-state="pending"] [data-reveal="text"] {
+    translate: 0 30px;
+  }
+
+  [data-reveal-state="shown"]:is([data-reveal]),
+  [data-reveal-state="shown"] [data-reveal] {
+    transition:
+      opacity 1.2s ease-out 0.1s,
+      translate 1.2s ease-out 0.1s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal-state="pending"]:is([data-reveal]),
+    [data-reveal-state="pending"] [data-reveal] {
+      translate: none;
+    }
+  }
+
   /* Visible keyboard focus everywhere (WCAG 2.4.7). */
   :focus-visible {
     outline: 2px solid var(--color-focus);

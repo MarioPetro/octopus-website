@@ -4,6 +4,7 @@ import { CategoryGallery } from "@/components/CategoryGallery";
 import { Container } from "@/components/Container";
 import { Hero } from "@/components/Hero";
 import { PromoBanner } from "@/components/PromoBanner";
+import { Reveal } from "@/components/Reveal";
 import { StoreBanner } from "@/components/StoreBanner";
 import { getCategories, getProducts } from "@/services";
 import type { CategorySlug } from "@/types";
@@ -15,7 +16,9 @@ export default async function HomePage() {
   const productsOf = (slug: CategorySlug) => products.filter((product) => product.category === slug);
 
   return (
-    // The hero and the banners are full-bleed, so they skip the Container.
+    // The hero and the banners are full-bleed, so they skip the Container. Each Reveal is the
+    // scroll reveal trigger of a section (Figma "Motion Documentation"); the hero and the banners
+    // are not in its list.
     <main className="flex flex-col gap-section">
       <Hero
         title="Octopus Ionic Hair Dryer"
@@ -24,11 +27,15 @@ export default async function HomePage() {
       />
 
       <Container>
-        <BestSellersCarousel products={products.filter((product) => product.bestSeller)} categories={categories} />
+        <Reveal>
+          <BestSellersCarousel products={products.filter((product) => product.bestSeller)} categories={categories} />
+        </Reveal>
       </Container>
 
       <Container>
-        <CategoryGallery category={byCategory("kitchen")} products={productsOf("kitchen")} layout="feature-wide" />
+        <Reveal>
+          <CategoryGallery category={byCategory("kitchen")} products={productsOf("kitchen")} layout="feature-wide" />
+        </Reveal>
       </Container>
 
       {/* Hair Care has no product section: in Figma it is promoted by this banner. */}
@@ -47,19 +54,25 @@ export default async function HomePage() {
       />
 
       <Container>
-        <CategoryGallery
-          category={byCategory("home-security")}
-          products={productsOf("home-security")}
-          layout="feature-tall"
-        />
+        <Reveal>
+          <CategoryGallery
+            category={byCategory("home-security")}
+            products={productsOf("home-security")}
+            layout="feature-tall"
+          />
+        </Reveal>
       </Container>
 
       <Container>
-        <CategoryGallery category={byCategory("accessories")} products={productsOf("accessories")} layout="row" />
+        <Reveal>
+          <CategoryGallery category={byCategory("accessories")} products={productsOf("accessories")} layout="row" />
+        </Reveal>
       </Container>
 
       <Container>
-        <CategoryExplorer categories={categories} />
+        <Reveal>
+          <CategoryExplorer categories={categories} />
+        </Reveal>
       </Container>
 
       <StoreBanner />

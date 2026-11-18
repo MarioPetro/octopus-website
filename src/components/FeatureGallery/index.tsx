@@ -1,4 +1,5 @@
 import { ImageFrame } from "@/components/ImageFrame";
+import { Reveal } from "@/components/Reveal";
 import type { Feature } from "@/types";
 import { cn } from "@/utils/cn";
 
@@ -23,9 +24,10 @@ export function FeatureGallery({ features }: FeatureGalleryProps) {
         {features.map((feature, index) => {
           const wide = index % 3 === 0;
           return (
-            <li key={feature.title} className={cn(wide && "desktop:col-span-2")}>
+            // Each card is its own scroll reveal: stacked on mobile, they enter the screen one by one.
+            <Reveal as="li" key={feature.title} travel="media" className={cn(wide && "desktop:col-span-2")}>
               <FeatureCard feature={feature} wide={wide} />
-            </li>
+            </Reveal>
           );
         })}
       </ul>

@@ -94,7 +94,7 @@ export function CategoryGallery({ category, products, layout }: CategoryGalleryP
             href: `/products/${product.slug}`,
           };
           return (
-            <li key={product.id} className={className}>
+            <li key={product.id} data-reveal="media" className={className}>
               {coverSizes && product.featureImage ? (
                 <ProductCard
                   {...content}

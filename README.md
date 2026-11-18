@@ -182,7 +182,7 @@ src/
   without JavaScript. The arrows only call `scrollBy` (one card at a time, without animation when
   the user prefers reduced motion) and read the scroll position on every `scroll` event: "previous"
   is disabled on the first product and "next" on the last, however the row was scrolled. It is
-  the only Client Component of the homepage. Two quick clicks move one card, because the second
+  the only Client Component of the homepage besides the scroll reveal wrapper (`Reveal`). Two quick clicks move one card, because the second
   click lands while the first scroll is still animating. The row also sets `overflow-y: hidden`:
   `overflow-x: auto` alone makes the other axis `auto` too, and the 2px of descenders below the
   last line of text were enough to let the row scroll vertically under the mouse.
@@ -256,6 +256,27 @@ Product page:
 - **Shared Open Graph fields live in one module.** Metadata merges shallowly, so a page that sets
   `openGraph` replaces the layout's whole object; `shared-metadata.ts` holds the fields every page
   repeats.
+
+Motion:
+
+- **Scroll reveal from the Figma "Motion Documentation", without a library.** When a section
+  enters the screen its elements fade in and rise together, once: 1.2s ease-out after 0.1s, 60px
+  for cards and images, 30px for text-only blocks (headings), only the fade for users who prefer
+  reduced motion. `Reveal` is a small Client Component that wraps a section and is the trigger:
+  an `IntersectionObserver` sets `data-reveal-state` on it, and the elements inside marked
+  `data-reveal="media"` or `"text"` move with a CSS transition (`globals.css`). The marks are plain
+  attributes, so the cards and headings stay Server Components and no wrapper is added inside the
+  lists. On the homepage each section is one group (heading and cards start together, as the
+  Figma asks); on the product page, which has no section headings, each block of the left column
+  and each feature card reveals on its own.
+- **The content is visible without JavaScript and the top of the page never waits.** The server
+  HTML has nothing hidden: after hydration `Reveal` hides only the groups still below the screen.
+  So there is no flash, no layout shift (only `opacity` and `translate` change) and nothing to wait
+  for when JavaScript fails.
+- **Not every element in the Figma list is animated.** The homepage hero heading (H01) and the
+  product info (P01) are on screen at load and are the largest elements there (the LCP): starting
+  them invisible would delay them by 1.3s and lower the Lighthouse Performance score. The category
+  page items (C01–C04) do not apply, since that page is a placeholder.
 
 - **Satoshi is loaded from the Fontshare CDN, not self-hosted.** The ITF Free Font License allows
   self-hosting on your own site but forbids redistributing the font file, including through a

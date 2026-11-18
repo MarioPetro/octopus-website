@@ -20,11 +20,15 @@ export function ProductDetails({ specs, downloads }: ProductDetailsProps) {
       </h2>
 
       {specs.length > 0 && (
-        <Accordion items={specs.map((section) => ({ title: section.title, content: <SpecItems items={section.items} /> }))} />
+        <div data-reveal="media">
+          <Accordion
+            items={specs.map((section) => ({ title: section.title, content: <SpecItems items={section.items} /> }))}
+          />
+        </div>
       )}
 
       {downloads.length > 0 && (
-        <div className="flex min-h-16 flex-wrap items-center justify-between gap-x-4 rounded-specifics bg-card px-5 py-2">
+        <div data-reveal="media" className="flex min-h-16 flex-wrap items-center justify-between gap-x-4 rounded-specifics bg-card px-5 py-2">
           <h3 className="text-body font-bold">Downloads</h3>
           <ul className="flex flex-wrap">
             {downloads.map((download) => (
