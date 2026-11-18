@@ -50,6 +50,8 @@ type BreakpointClasses = {
   title?: Partial<Record<TextPosition, string>>;
   packshot: Record<PackshotTextPosition, { card: string; image: string }>;
   cover: Record<TextPosition, string>;
+  /** Cover cards only: the widest the title and description may run (Figma "Frame 87"). */
+  coverText: Record<TextPosition, string>;
 };
 
 const BASE: BreakpointClasses = {
@@ -85,6 +87,14 @@ const BASE: BreakpointClasses = {
     left: "flex-row items-center justify-start p-6",
     right: "flex-row items-center justify-end p-6",
   },
+  // The Figma mobile card is 358px wide, so its texts wrap at 310px.
+  coverText: {
+    top: "max-w-[310px]",
+    center: "max-w-[310px]",
+    bottom: "max-w-[310px]",
+    left: "max-w-[310px]",
+    right: "max-w-[310px]",
+  },
 };
 
 const TABLET: BreakpointClasses = {
@@ -119,6 +129,13 @@ const TABLET: BreakpointClasses = {
     bottom: "tablet:flex-col tablet:items-stretch tablet:justify-end tablet:p-10",
     left: "tablet:flex-row tablet:items-center tablet:justify-start tablet:p-10",
     right: "tablet:flex-row tablet:items-center tablet:justify-end tablet:p-10",
+  },
+  coverText: {
+    top: "tablet:max-w-none",
+    center: "tablet:max-w-none",
+    bottom: "tablet:max-w-none",
+    left: "tablet:max-w-[300px]",
+    right: "tablet:max-w-[300px]",
   },
 };
 
@@ -160,6 +177,13 @@ const DESKTOP: BreakpointClasses = {
     bottom: "desktop:flex-col desktop:items-stretch desktop:justify-end desktop:p-10",
     left: "desktop:flex-row desktop:items-center desktop:justify-start desktop:p-10",
     right: "desktop:flex-row desktop:items-center desktop:justify-end desktop:p-10",
+  },
+  coverText: {
+    top: "desktop:max-w-none",
+    center: "desktop:max-w-none",
+    bottom: "desktop:max-w-none",
+    left: "desktop:max-w-[400px]",
+    right: "desktop:max-w-[400px]",
   },
 };
 
@@ -214,10 +238,16 @@ export function ProductCard(props: ProductCardProps) {
           DESKTOP.body[position.desktop],
         )}
       >
-        <div className="flex flex-col gap-4">
+        <div
+          className={cn(
+            "flex flex-col gap-4",
+            props.cover &&
+              cn(BASE.coverText[position.base], TABLET.coverText[position.tablet], DESKTOP.coverText[position.desktop]),
+          )}
+        >
           {tag && <p className="text-body-lg font-book text-accent">{tag}</p>}
           <h3 className={cn("text-title-lg font-bold leading-[1.1]", DESKTOP.title?.[position.desktop])}>{title}</h3>
-          <p className="text-body font-book text-secondary desktop:text-title">{description}</p>
+          <p className={`text-body font-book ${props.cover ? 'text-primary' : 'text-secondary'} desktop:text-title`}>{description}</p>
         </div>
         {/* The hidden text tells the many "Learn more" links apart, and the name still starts with
             the visible text (WCAG 2.5.3). It is text, not aria-label, because Lighthouse's link

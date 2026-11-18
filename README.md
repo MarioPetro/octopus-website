@@ -214,6 +214,9 @@ src/
   hidden span ("Learn more about Octopus Blender").
   Screen readers announce the same name either way, but Lighthouse's SEO audit "Links do not have
   descriptive text" reads only the link's text, so with `aria-label` it flagged all 16 links.
+- **Cover cards cap their text column at the Figma widths**, so the description wraps where it does
+  in Figma: 310px on mobile (the Figma mobile card is a fixed 358px), 300px on tablet and 400px on
+  desktop when the texts sit beside the photo.
 - **Horizontal cards use one left padding (40px).** In Figma the large horizontal cards (best
   sellers, Kettle) have 64px on tablet and 80px on desktop; keeping a single value avoids a size
   prop on `ProductCard`, at the cost of the text starting slightly further left on those cards.
