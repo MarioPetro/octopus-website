@@ -248,7 +248,11 @@ Product page:
   generated at build time is rendered on its first visit, and by default Next starts streaming a
   200 page shell before `notFound()` runs. `ensureStatic = "navigation"` makes that first request
   wait for the complete static render, so the status stays 404; it also makes the build fail if the
-  page ever reads request-time data. The category placeholder pages use the same setting.
+  page ever reads request-time data. The pages also keep `instant = false`: they read `params`
+  before rendering, so Next's instant-navigation check (dev only) would flag the navigation as
+  blocking, and its suggested fix, `<Suspense>` around `params`, would bring back the 200 shell.
+  Every real slug is prerendered, so the navigation does not wait in practice. The category
+  placeholder pages use the same settings.
 - **Shared Open Graph fields live in one module.** Metadata merges shallowly, so a page that sets
   `openGraph` replaces the layout's whole object; `shared-metadata.ts` holds the fields every page
   repeats.

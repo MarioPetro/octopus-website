@@ -10,6 +10,10 @@ import { StickyBuyBar } from "@/components/StickyBuyBar";
 import { getProductDetail, getProducts } from "@/services";
 import { baseOpenGraph } from "../../shared-metadata";
 
+// The page reads `params` before rendering, to answer 404 for unknown slugs, so a navigation to it
+// may block: every real slug is prerendered anyway. Wrapping it in <Suspense> instead would bring
+// back a 200 shell for unknown slugs.
+export const instant = false;
 // The page must be fully static. For a slug not generated at build time, the first request then
 // waits for the complete render instead of streaming a 200 shell, so notFound() keeps the 404.
 export const ensureStatic = "navigation";

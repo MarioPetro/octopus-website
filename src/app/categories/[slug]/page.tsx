@@ -2,8 +2,8 @@ import { notFound } from "next/navigation";
 import { placeholderMetadata, PlaceholderPage } from "@/components/PlaceholderPage";
 import { getCategories } from "@/services";
 
-// The page must be fully static. For a slug not generated at build time, the first request then
-// waits for the complete render instead of streaming a 200 shell, so notFound() keeps the 404.
+// Same settings as the product page: see the comments in app/products/[slug]/page.tsx.
+export const instant = false;
 export const ensureStatic = "navigation";
 
 export async function generateStaticParams() {
