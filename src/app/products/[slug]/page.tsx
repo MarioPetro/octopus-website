@@ -10,8 +10,9 @@ import { StickyBuyBar } from "@/components/StickyBuyBar";
 import { getProductDetail, getProducts } from "@/services";
 import { baseOpenGraph } from "../../shared-metadata";
 
-// Blocks on `params` instead of streaming, to keep a real 404 status for unknown slugs.
-export const instant = false;
+// The page must be fully static. For a slug not generated at build time, the first request then
+// waits for the complete render instead of streaming a 200 shell, so notFound() keeps the 404.
+export const ensureStatic = "navigation";
 
 // Width of the left column: 709 of 1344px on desktop, what the 238px sticky column leaves on tablet.
 const COLUMN_SIZES = "(min-width: 1200px) 709px, (min-width: 810px) calc(100vw - 334px), 100vw";

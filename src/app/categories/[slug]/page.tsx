@@ -2,8 +2,9 @@ import { notFound } from "next/navigation";
 import { placeholderMetadata, PlaceholderPage } from "@/components/PlaceholderPage";
 import { getCategories } from "@/services";
 
-// Blocks on `params` instead of streaming, to keep a real 404 status for unknown slugs.
-export const instant = false;
+// The page must be fully static. For a slug not generated at build time, the first request then
+// waits for the complete render instead of streaming a 200 shell, so notFound() keeps the 404.
+export const ensureStatic = "navigation";
 
 export async function generateStaticParams() {
   const categories = await getCategories();
