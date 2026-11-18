@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { FeatureGallery } from "@/components/FeatureGallery";
 import { ImageFrame } from "@/components/ImageFrame";
 import { ProductInfo } from "@/components/ProductInfo";
 import { StickyBuyBar } from "@/components/StickyBuyBar";
@@ -82,13 +83,11 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
           </section>
 
           <div className="flex flex-col gap-10 px-gutter tablet:col-start-1 tablet:row-start-2 tablet:gap-20 tablet:px-0">
-            {photos.map((photo) => (
-              <ImageFrame
-                key={photo.alt}
-                image={photo}
-                sizes={COLUMN_SIZES}
-                className="aspect-[3/4] rounded-card"
-              />
+            {/* Figma's order: a photo, the feature cards, another photo. */}
+            {photos[0] && <ImageFrame image={photos[0]} sizes={COLUMN_SIZES} className="aspect-[3/4] rounded-card" />}
+            <FeatureGallery features={product.features} />
+            {photos.slice(1).map((photo) => (
+              <ImageFrame key={photo.alt} image={photo} sizes={COLUMN_SIZES} className="aspect-[3/4] rounded-card" />
             ))}
           </div>
         </div>
