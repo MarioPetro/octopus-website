@@ -38,7 +38,6 @@ describe("PromoBanner", () => {
     render(<PromoBanner {...props} />);
 
     const picture = screen.getByRole("img", { name: props.image.alt }).closest("picture");
-    // The fill is the outer layer behind the photo's box.
     const fill = picture?.parentElement?.parentElement?.parentElement;
     expect(fill).toHaveStyle({ background: "rgb(222 193 171)" });
   });

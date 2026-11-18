@@ -8,7 +8,6 @@ export default defineConfig({
   },
   test: {
     environment: "jsdom",
-    // Jest-style globals (describe, it, expect, vi) without explicit imports.
     globals: true,
     setupFiles: ["./vitest.setup.ts"],
     include: ["src/**/*.test.{ts,tsx}"],

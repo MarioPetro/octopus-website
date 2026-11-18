@@ -8,21 +8,14 @@ import { StoreBanner } from "@/components/StoreBanner";
 import { getCategories, getProducts } from "@/services";
 import type { CategorySlug } from "@/types";
 
-/**
- * The homepage. Its structure (which sections, in which order, with which layout) is written
- * here; the categories and products the sections show come from the mock API.
- */
+/** The structure of the page lives here; the categories and products come from the mock API. */
 export default async function HomePage() {
   const [products, categories] = await Promise.all([getProducts(), getCategories()]);
-  // Every category section shows the products of its category: adding a product to the data
-  // is enough to show it in the right section.
   const byCategory = (slug: CategorySlug) => categories.find((category) => category.slug === slug)!;
   const productsOf = (slug: CategorySlug) => products.filter((product) => product.category === slug);
 
   return (
-    // gap-section puts the same space between all the sections (80 → 120 → 180px).
-    // Content sections sit in the site column (Container); the hero and the banners span the
-    // full window width. The store banner touches the footer, as in Figma.
+    // The hero and the banners are full-bleed, so they skip the Container.
     <main className="flex flex-col gap-section">
       <Hero
         title="Octopus Ionic Hair Dryer"
@@ -49,7 +42,7 @@ export default async function HomePage() {
           tablet: "/images/categories/hair-care-tablet.png",
           desktop: "/images/categories/hair-care-desktop.png",
         }}
-        // Colours of the photos' left edge, top to bottom (sampled from the image pixels).
+        // The photos' left-edge colours.
         background="linear-gradient(to bottom, rgb(217 187 166) 0%, rgb(222 193 171) 20%, rgb(225 197 175) 40%, rgb(225 197 175) 60%, rgb(222 191 168) 80%, rgb(213 182 159) 100%)"
       />
 

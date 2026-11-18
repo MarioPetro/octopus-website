@@ -16,13 +16,8 @@ describe("getProducts (mock)", () => {
   it("returns every product in data order", async () => {
     const products = await getProducts();
     expect(products.length).toBeGreaterThan(0);
-    // The first three kitchen products are the ones shown in the Kitchen gallery.
     const kitchen = products.filter((product) => product.category === "kitchen");
-    expect(kitchen.slice(0, 3).map((product) => product.slug)).toEqual([
-      "blender",
-      "kettle",
-      "countertop-blender",
-    ]);
+    expect(kitchen.slice(0, 3).map((product) => product.slug)).toEqual(["blender", "kettle", "countertop-blender"]);
   });
 });
 

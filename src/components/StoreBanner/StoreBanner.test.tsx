@@ -17,7 +17,6 @@ describe("StoreBanner", () => {
   it("keeps the decorative photo out of the accessibility tree", () => {
     render(<StoreBanner />);
 
-    // An empty alt makes the image presentational, so it is not exposed as an image.
     expect(screen.queryByRole("img")).not.toBeInTheDocument();
   });
 });

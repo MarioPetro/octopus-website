@@ -4,10 +4,7 @@ export type ContainerProps = {
   children: ReactNode;
 };
 
-/**
- * The site's content column, as in Figma: the page side margin outside (16 → 32 → 48px) and a
- * column of at most 1344px centred inside. Full-bleed blocks (hero, banners) skip it.
- */
+/** The site's content column: side margin outside, max-width column centred inside. */
 export function Container({ children }: ContainerProps) {
   return (
     <div className="px-gutter">

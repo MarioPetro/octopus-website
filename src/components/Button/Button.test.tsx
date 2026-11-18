@@ -48,7 +48,6 @@ describe("Button", () => {
   });
 
   it("requires an aria-label for icon-only buttons (compile-time check)", () => {
-    // If TypeScript ever stops rejecting this, `yarn typecheck` fails on the unused directive.
     // @ts-expect-error icon-only buttons must have an aria-label
     const element = <Button variant="icon" icon={<ChevronIcon />} />;
     expect(element).toBeDefined();

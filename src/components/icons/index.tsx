@@ -6,10 +6,6 @@ type ChevronIconProps = SVGProps<SVGSVGElement> & {
 
 const ROTATION = { right: 0, down: 90, left: 180, up: 270 } as const;
 
-/**
- * Figma "General / Chevron-right / 24 px / Outline". Decorative: the control that
- * contains it provides the accessible name, so it is hidden from screen readers.
- */
 export function ChevronIcon({ direction = "right", style, ...props }: ChevronIconProps) {
   return (
     <svg
@@ -33,7 +29,7 @@ export function ChevronIcon({ direction = "right", style, ...props }: ChevronIco
 
 type IconProps = SVGProps<SVGSVGElement>;
 
-/** Shared frame of the 24px outline icons: decorative, the control around them names them. */
+/** Decorative: the control around the icon gives the accessible name. */
 function OutlineIcon({ children, ...props }: IconProps) {
   return (
     <svg
@@ -53,7 +49,6 @@ function OutlineIcon({ children, ...props }: IconProps) {
   );
 }
 
-/** Figma "General / Hamburger / 24 px / Outline": two 15.7px lines, 7.7px apart. */
 export function MenuIcon(props: IconProps) {
   return (
     <OutlineIcon {...props}>
@@ -62,7 +57,6 @@ export function MenuIcon(props: IconProps) {
   );
 }
 
-/** Figma "General / Close / 24 px / Outline": a 13.7px cross. */
 export function CloseIcon(props: IconProps) {
   return (
     <OutlineIcon {...props}>

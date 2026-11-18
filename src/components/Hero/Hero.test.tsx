@@ -17,7 +17,6 @@ describe("Hero", () => {
   it("is a region named by its title", () => {
     render(<Hero {...PROPS} />);
 
-    // A <section> with an accessible name is a landmark screen-reader users can jump to.
     expect(screen.getByRole("region", { name: "Octopus Ionic Hair Dryer" })).toBeInTheDocument();
   });
 

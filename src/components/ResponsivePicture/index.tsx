@@ -5,23 +5,15 @@ import { cn } from "@/utils/cn";
 
 export type ResponsivePictureProps = {
   image: ResponsiveImage;
-  /** Rendered width at each breakpoint; full-width banners use the default. */
   sizes?: string;
-  /** For an image above the fold (the LCP element): loads it immediately, with high priority. */
+  /** Only for the LCP image above the fold. */
   preload?: boolean;
-  /** Sets the frame size, usually a different aspect ratio per breakpoint. */
   className?: string;
 };
 
-/**
- * Art direction: shows a different image file at each breakpoint (mobile, tablet, desktop),
- * each cropped by the designer for that format. The browser picks the first <source> whose
- * media query matches and downloads only that file. Like ImageFrame, the frame reserves its
- * space before the image loads, so there is no layout shift.
- */
+/** Art direction: a different crop per breakpoint; the browser downloads only the matching one. */
 export function ResponsivePicture({ image, sizes = "100vw", preload = false, className }: ResponsivePictureProps) {
-  // getImageProps gives the optimised srcSet (AVIF/WebP, several widths) for each file,
-  // which next/image cannot do across breakpoints on its own.
+  // next/image has no art direction: getImageProps gives an optimised srcSet for each file.
   const common = { alt: image.alt, fill: true, sizes };
   const desktop = getImageProps({ ...common, src: image.desktop }).props;
   const tablet = getImageProps({ ...common, src: image.tablet }).props;
@@ -32,7 +24,6 @@ export function ResponsivePicture({ image, sizes = "100vw", preload = false, cla
       <picture>
         <source media={MEDIA.desktop} srcSet={desktop.srcSet} sizes={sizes} />
         <source media={MEDIA.tablet} srcSet={tablet.srcSet} sizes={sizes} />
-        {/* The <img> is the mobile fallback and carries alt, sizing and loading behaviour. */}
         <img
           {...img}
           alt={image.alt}

@@ -46,7 +46,6 @@ describe("Header", () => {
     render(<Header categories={CATEGORIES} />);
 
     expect(getToggle()).toHaveAttribute("aria-expanded", "false");
-    // Only the desktop nav is exposed: the closed panel is hidden.
     expect(screen.getAllByRole("navigation", { name: "Main" })).toHaveLength(1);
   });
 
@@ -73,7 +72,6 @@ describe("Header", () => {
     await user.keyboard("{Enter}");
     expect(getToggle()).toHaveAttribute("aria-expanded", "true");
 
-    // Tab moves into the panel: its first link follows the toggle.
     await user.tab();
     expect(screen.getAllByRole("link", { name: "Kitchen" }).at(-1)).toHaveFocus();
 

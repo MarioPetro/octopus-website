@@ -2,16 +2,15 @@ import Link from "next/link";
 import type { ButtonHTMLAttributes, ComponentProps, ReactNode } from "react";
 import { cn } from "@/utils/cn";
 
-/** The four button types of the Figma Design System ("Special" in Figma is our "secondary"). */
+/** Figma's "Special" type is our "secondary". */
 export type ButtonColor = "primary" | "secondary" | "ghost-light" | "ghost-dark";
 
 type ButtonContent =
-  /** A label, with an optional icon after it. */
   | { variant?: "text"; children: ReactNode; icon?: ReactNode }
-  /** A 40px circle with only an icon: it has no visible text, so a label is required. */
+  /** No visible text, so a label is required. */
   | { variant: "icon"; icon: ReactNode; "aria-label": string; children?: never };
 
-/** With `href` it is a link (it navigates); without, a <button> (it does something). */
+/** With `href` it is a link, without it a <button>. */
 type ButtonElement =
   | ({ href: string } & Omit<ComponentProps<typeof Link>, "href" | "color" | "children">)
   | ({ href?: never } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "color" | "children">);
@@ -22,7 +21,6 @@ const BASE =
   "inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-button border " +
   "text-cta whitespace-nowrap transition-colors duration-150 disabled:cursor-not-allowed";
 
-// `not-disabled:` keeps hover and pressed styles off disabled buttons, and still applies to links.
 const COLORS: Record<ButtonColor, string> = {
   primary:
     "border-button-primary-stroke bg-button-primary text-inverse " +
@@ -33,7 +31,6 @@ const COLORS: Record<ButtonColor, string> = {
     "not-disabled:hover:bg-button-secondary-hover not-disabled:active:bg-button-secondary-pressed " +
     "disabled:bg-disabled disabled:text-disabled-foreground",
   "ghost-light": "border-transparent bg-transparent text-primary disabled:text-disabled-foreground",
-  // Used on red or dark backgrounds, where the blue focus ring would not be visible.
   "ghost-dark":
     "border-transparent bg-transparent text-inverse focus-visible:outline-inverse " +
     "disabled:text-disabled-foreground",

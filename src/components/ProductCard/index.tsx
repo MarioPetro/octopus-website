@@ -5,42 +5,33 @@ import { ResponsivePicture } from "@/components/ResponsivePicture";
 import type { FeatureImage, Image } from "@/types";
 import { cn } from "@/utils/cn";
 
-/**
- * Where the text block sits in the card. With a packshot the image takes the opposite side
- * (`top`: image below, `left`: image on the right…). With a cover photo the photo fills the card
- * anyway, and the position only moves the texts over it.
- */
+/** Where the text block sits. A packshot takes the opposite side; a cover photo stays behind. */
 export type TextPosition = "top" | "bottom" | "left" | "right" | "center";
 
-/** `center` would put the texts over the packshot, so it is only allowed on a cover photo. */
 export type PackshotTextPosition = Exclude<TextPosition, "center">;
 
-/** One value for every breakpoint, or one per breakpoint: a missing one inherits the smaller. */
+/** One value, or one per breakpoint: a missing breakpoint inherits the smaller one. */
 export type Responsive<T> = T | { base: T; tablet?: T; desktop?: T };
 
-// `cover` decides which image the card accepts, and which text positions make sense with it.
 type ImageProps =
   | {
-      /** Packshot: the product alone, shown whole in the space the texts leave free. */
       cover?: false;
       image: Image;
       textPosition?: Responsive<PackshotTextPosition>;
     }
   | {
-      /** Cover: a photo cropped per breakpoint that fills the whole card, behind the texts. */
+      /** The photo fills the whole card, behind the texts. */
       cover: true;
       image: FeatureImage;
       textPosition?: Responsive<TextPosition>;
     };
 
 export type ProductCardProps = ImageProps & {
-  /** Red label above the title, e.g. the category name in the best sellers carousel. */
   tag?: string;
   title: string;
   description: string;
-  /** Where "Learn more" leads. */
   href: string;
-  /** Rendered image width at each breakpoint; depends on the grid the card is in. */
+  /** Rendered image width at each breakpoint, for `sizes`. */
   imageSizes?: string;
 };
 
@@ -52,18 +43,12 @@ function resolve<T>(value: Responsive<T>): { base: T; tablet: T; desktop: T } {
   return { base: value, tablet: value, desktop: value };
 }
 
-// One set of classes per breakpoint and text position. Tailwind only generates classes it finds
-// written out in full in the source, so the breakpoint prefixes cannot be built from a variable.
-// Every entry sets all the properties it touches (direction, alignment, all four paddings), so
-// a breakpoint never inherits a leftover from the smaller one.
+// Tailwind only generates classes written out in full, so each breakpoint has its own table.
+// Every entry sets all the properties it touches, so nothing leaks from a smaller breakpoint.
 type BreakpointClasses = {
-  /** Text block: width and alignment. Shared by packshot and cover cards. */
   body: Record<TextPosition, string>;
-  /** Title size, only where it changes. */
   title?: Partial<Record<TextPosition, string>>;
-  /** Packshot card: direction and paddings of the card, size and order of the image. */
   packshot: Record<PackshotTextPosition, { card: string; image: string }>;
-  /** Cover card: where the text block sits over the photo. */
   cover: Record<TextPosition, string>;
 };
 
@@ -145,7 +130,6 @@ const DESKTOP: BreakpointClasses = {
     left: "desktop:w-1/2 desktop:items-start desktop:text-left",
     right: "desktop:w-1/2 desktop:items-start desktop:text-left",
   },
-  // The large cards use H3/L (32px) on desktop; the small cards with the image on top keep H3/S.
   title: {
     top: "desktop:text-h3",
     center: "desktop:text-h3",
@@ -182,13 +166,7 @@ const DESKTOP: BreakpointClasses = {
 const DEFAULT_PACKSHOT_SIZES = "(min-width: 1200px) 33vw, (min-width: 810px) 50vw, 100vw";
 const DEFAULT_COVER_SIZES = "100vw";
 
-/**
- * A grey card with a tag, title, description, a "Learn more" link and an image. The card fills
- * the space its parent gives it (a grid cell): with a packshot the image takes what the texts
- * leave free; with a cover photo the photo fills the card and the texts sit over it.
- * `textPosition` places the texts, per breakpoint if needed; the text alignment follows from it
- * (centred at the top or in the middle, left-aligned elsewhere).
- */
+/** A card that fills its parent: texts and a "Learn more" link, with a packshot or a cover photo. */
 export function ProductCard(props: ProductCardProps) {
   const { tag, title, description, href } = props;
   const position = resolve<TextPosition>(props.textPosition ?? "top");
@@ -199,8 +177,6 @@ export function ProductCard(props: ProductCardProps) {
   if (props.cover) {
     cardClasses = cn(BASE.cover[position.base], TABLET.cover[position.tablet], DESKTOP.cover[position.desktop]);
     media = (
-      // The photo sits behind the texts and fills the card; each breakpoint gets its own crop.
-      // `-scale-x-100` flips it horizontally when the data asks for it.
       <div className={cn("absolute inset-0", props.image.mirrored && "-scale-x-100")}>
         <ResponsivePicture
           image={props.image}
@@ -227,16 +203,11 @@ export function ProductCard(props: ProductCardProps) {
 
   return (
     <article
-      className={cn(
-        // `relative overflow-hidden` holds the cover photo inside the rounded card.
-        "relative flex h-full gap-6 overflow-hidden rounded-card bg-card tablet:gap-8",
-        cardClasses,
-      )}
+      className={cn("relative flex h-full gap-6 overflow-hidden rounded-card bg-card tablet:gap-8", cardClasses)}
     >
       {props.cover && media}
       <div
         className={cn(
-          // `relative` paints the texts above the absolutely positioned cover photo.
           "relative flex flex-col gap-6 tablet:gap-8",
           BASE.body[position.base],
           TABLET.body[position.tablet],
@@ -245,12 +216,10 @@ export function ProductCard(props: ProductCardProps) {
       >
         <div className="flex flex-col gap-4">
           {tag && <p className="text-body-lg font-book text-accent">{tag}</p>}
-          {/* 24px bold on mobile and tablet (Figma H3/S); larger on desktop for the big cards. */}
           <h3 className={cn("text-title-lg font-bold leading-[1.1]", DESKTOP.title?.[position.desktop])}>{title}</h3>
           <p className="text-body font-book text-secondary desktop:text-title">{description}</p>
         </div>
-        {/* The visible text comes first in the accessible name (WCAG 2.5.3), and the title
-            tells screen reader users which of the many "Learn more" links this is. */}
+        {/* Starts with the visible text (WCAG 2.5.3) and tells the many "Learn more" links apart. */}
         <Button href={href} aria-label={`Learn more about ${title}`}>
           Learn more
         </Button>

@@ -2,12 +2,9 @@ import { notFound } from "next/navigation";
 import { placeholderMetadata, PlaceholderPage } from "@/components/PlaceholderPage";
 import { getCategories } from "@/services";
 
-// The page reads `params` before rendering anything, so navigating to it waits for the server
-// instead of showing a shell first. That is fine for a placeholder, and it keeps a real 404
-// status for a slug that is not a category (notFound() below).
+// Blocks on `params` instead of streaming, to keep a real 404 status for unknown slugs.
 export const instant = false;
 
-// One page per category in the data, prerendered at build time.
 export async function generateStaticParams() {
   const categories = await getCategories();
   return categories.map((category) => ({ slug: category.slug }));

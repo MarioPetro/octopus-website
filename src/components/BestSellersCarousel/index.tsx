@@ -7,29 +7,21 @@ import { ProductCard } from "@/components/ProductCard";
 import type { Category, Product } from "@/types";
 
 export type BestSellersCarouselProps = {
-  /** The products to show, in order (the page passes the best sellers). */
   products: Product[];
-  /** Used to show each product's category name above its title. */
+  /** To show each product's category name. */
   categories: Category[];
 };
 
-/**
- * A horizontal row of product cards that scrolls natively: swipe on touch screens, trackpad or
- * the arrow buttons. CSS scroll snapping stops every card aligned to the left edge.
- * Client Component: the arrows need the scroll position to know when to be disabled.
- */
+/** A natively scrolling row of cards with scroll snapping; the arrows track the scroll position. */
 export function BestSellersCarousel({ products, categories }: BestSellersCarouselProps) {
   const listRef = useRef<HTMLUListElement>(null);
-  // Before the first measurement (server render) the row is at its start.
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
 
-  // Reads the scroll position. It runs on every scroll, so the arrows stay right whether the
-  // user swipes, uses the trackpad, tabs through the links or clicks the arrows.
   const updateArrows = useCallback(() => {
     const list = listRef.current;
     if (!list) return;
-    // 1px of tolerance: browsers can report fractional scroll positions.
+    // Browsers can report fractional scroll positions.
     setAtStart(list.scrollLeft <= 1);
     setAtEnd(list.scrollLeft + list.clientWidth >= list.scrollWidth - 1);
   }, []);
@@ -39,7 +31,6 @@ export function BestSellersCarousel({ products, categories }: BestSellersCarouse
     if (!list) return;
     updateArrows();
     list.addEventListener("scroll", updateArrows, { passive: true });
-    // The visible width changes with the window, and with it whether the end is reached.
     window.addEventListener("resize", updateArrows);
     return () => {
       list.removeEventListener("scroll", updateArrows);
@@ -47,7 +38,6 @@ export function BestSellersCarousel({ products, categories }: BestSellersCarouse
     };
   }, [updateArrows]);
 
-  // Scrolls by one card (its width plus the gap), so the next card snaps into place.
   const scrollByCard = (direction: 1 | -1) => {
     const list = listRef.current;
     const firstCard = list?.firstElementChild;
@@ -67,8 +57,8 @@ export function BestSellersCarousel({ products, categories }: BestSellersCarouse
       <h2 id="best-sellers-title" className="text-h3">
         Best sellers
       </h2>
-      {/* The row reaches the edges of the window (negative margin over the page gutter), so the
-          next card peeks in; scroll-padding keeps snapped cards aligned with the page content. */}
+      {/* Bleeds to the window edges so the next card peeks in; scroll-padding keeps snapped
+          cards aligned with the page content. */}
       <ul
         ref={listRef}
         className="-mx-gutter flex snap-x snap-mandatory scroll-px-gutter gap-4 overflow-x-auto px-gutter [scrollbar-width:none] desktop:gap-6 [&::-webkit-scrollbar]:hidden"
