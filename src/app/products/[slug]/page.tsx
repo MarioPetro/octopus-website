@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ImageFrame } from "@/components/ImageFrame";
 import { ProductInfo } from "@/components/ProductInfo";
+import { StickyBuyBar } from "@/components/StickyBuyBar";
 import { getProductDetail, getProducts } from "@/services";
 import { baseOpenGraph } from "../../shared-metadata";
 
@@ -92,6 +93,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
           </div>
         </div>
       </div>
+      <StickyBuyBar />
     </main>
   );
 }

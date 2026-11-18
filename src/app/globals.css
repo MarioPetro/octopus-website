@@ -72,6 +72,8 @@
   --spacing-section: 5rem;
   /* Height the sticky header takes; the hero slides under it with a negative margin. */
   --spacing-header: 4.6875rem;
+  /* Height of the "Where to buy" bar fixed at the bottom of the product page on mobile. */
+  --spacing-buy-bar: 3.8125rem;
 
   /* Radii */
   --radius-card: 1rem;
@@ -127,6 +129,15 @@
 @layer base {
   body {
     @apply bg-main font-sans text-primary antialiased;
+  }
+
+  /* Keeps the end of the footer clear of the fixed buy bar, on the pages that have one. */
+  body:has([data-buy-bar]) {
+    padding-bottom: var(--spacing-buy-bar);
+
+    @variant tablet {
+      padding-bottom: 0;
+    }
   }
 
   /* Visible keyboard focus everywhere (WCAG 2.4.7). */
