@@ -38,6 +38,16 @@ yarn dev
 | `yarn test:unit` | Component tests only |
 | `yarn test:e2e` | End-to-end tests only |
 
+Component tests sit next to each component (`*.test.tsx`), and cover for example the carousel
+arrows, the accordion and the colour selector, with the mouse and the keyboard. The end-to-end
+test (`e2e/product-page.spec.ts`) runs on desktop Chrome and mobile Safari: it opens the
+Countertop Blender from its homepage card, picks a colour, closes and reopens a specification
+section and checks where "Where to buy" is on each device; another test checks that unknown
+product and category slugs answer 404.
+
+> **Dev server and new design tokens.** After adding a token to an `@theme` block in
+> `globals.css`, restart `yarn dev`: the running dev server can keep serving the old theme.
+
 ## Design tokens
 
 All design tokens live in [`src/app/globals.css`](src/app/globals.css), in Tailwind 4 `@theme`
@@ -90,6 +100,11 @@ src/
 - Every card links to `/products/{slug}`. The product page reads the slug from the URL and calls
   `getProductDetail(slug)`, which is a **mock**: the demo has detail content for the Countertop
   Blender only, so it returns that for any slug (the brief allows every card to open that page).
+  A slug that is not in `products.json` is a 404.
+- On the product page the structure is in `page.tsx` (packshot, info, photo, feature cards, photo,
+  specifications, best sellers) and every content comes from the product detail: gallery photos,
+  features, specs, downloads and colours. The best sellers are the products with `bestSeller`, as
+  on the homepage.
 - Image sizes are not stored in the data: `ImageFrame` reserves space with a CSS aspect-ratio box
   taken from the Figma layout and `next/image` fills it (`fill` + `object-fit`), so any image fits
   without layout shift. Images are lazy-loaded except the LCP image (`preload`), each one declares
@@ -119,6 +134,21 @@ src/
 - **Missing assets use neutral placeholders** of the right aspect ratio: the hero video and the
   product page gallery and feature images were not part of the exported assets. In the data these
   images have no `src`.
+- **The navigation collapses into the menu below 1200px, as the brief asks.** The Figma tablet
+  frame still shows the full navigation; the brief's acceptance criterion wins here.
+- **The best sellers carousel has no pagination dots, as in Figma.** The brief mentions dots, but
+  no frame shows them; the arrows and swipe cover the navigation.
+- **Downloads is a row of links, not an accordion section.** The brief lists it among the sections
+  that expand and collapse; Figma shows it as a separate box whose only content is the "User
+  manual" link, so there is nothing to hide.
+- **The feature card texts are shown at every breakpoint.** The Figma mobile frame hides them,
+  which is a mistake in the file, and the tablet frame shows placeholder copy ("Title feature 1"):
+  both use the real texts from the data.
+- **The product info texts are shown on tablet and mobile.** In the Figma prototype the title and
+  description do not render there (Satoshi Variable is missing), but the layers exist with their
+  content and styles (H2, Body).
+- **The specification boxes use a 16px radius.** Figma names the radius "Specifics", whose value
+  cannot be read with view-only access; 16px was measured on the prototype.
 - **The Warehouse logo is set as text.** In the store banner Figma shows the retailer's logo, a
   vector that was not among the exported assets. Its name is written as bold white text instead
   ("Find us at / The Warehouse"), rather than redrawing another company's logo by hand.
@@ -153,7 +183,15 @@ src/
   the user prefers reduced motion) and read the scroll position on every `scroll` event: "previous"
   is disabled on the first product and "next" on the last, however the row was scrolled. It is
   the only Client Component of the homepage. Two quick clicks move one card, because the second
-  click lands while the first scroll is still animating.
+  click lands while the first scroll is still animating. The row also sets `overflow-y: hidden`:
+  `overflow-x: auto` alone makes the other axis `auto` too, and the 2px of descenders below the
+  last line of text were enough to let the row scroll vertically under the mouse.
+- **The carousel has two variants, the cards stay two components.** `variant="feature"` (homepage)
+  shows the large `ProductCard`s; `variant="compact"` (product page) shows `ProductTile`s, the
+  small card with the texts below the packshot that "Explore all categories" also uses. Scrolling
+  and arrows are shared. A `ProductTile` is not a `ProductCard` option because it differs in more
+  than the text position: the grey box is only behind the image, the whole tile is the link (no
+  "Learn more"), the image zooms on hover and the type sizes are smaller.
 - **`PromoBanner` is generic; the homepage passes the Ionic Hair Dryer content.** Title,
   description, link, the three image crops and the `background` fill are props, so another
   product can be promoted with the same component. It uses the three Figma exports
@@ -170,14 +208,50 @@ src/
   red backgrounds. On tablet the banner keeps a 500px height while it widens up to 1199px, so the
   photo is shown whole (`object-fit: contain`) on the right instead of being cropped, over a fill
   sampled from the photo's own red (darker than the brand red), into which its left edge fades.
-- **Category tiles are one link each, with a decorative image.** In "Explore all categories" the
-  packshot has an empty alt and the category name is the link text, so a screen reader announces
-  "Kitchen, link" once instead of an image and a name. As in the Figma prototype, on hover the
+- **Tiles are one link each, with a decorative image.** In "Explore all categories" and in the
+  product page carousel the packshot has an empty alt and the title names the link
+  (`aria-labelledby`), so a screen reader announces "Kitchen, link" once instead of an image and a
+  name; on product tiles the description is read after it, as the link's description. As in the Figma prototype, on hover the
   packshot zooms in by 5% inside its frame; keyboard focus does the same, and the animation is
   skipped for users who prefer reduced motion.
 - **Horizontal cards use one left padding (40px).** In Figma the large horizontal cards (best
   sellers, Kettle) have 64px on tablet and 80px on desktop; keeping a single value avoids a size
   prop on `ProductCard`, at the cost of the text starting slightly further left on those cards.
+
+Product page:
+
+- **One grid, the same HTML order at every breakpoint.** The page is a CSS grid: packshot, product
+  info, then the gallery column. On mobile they stack in that order; from tablet the info sits in a
+  right column that spans both rows and is `position: sticky`, so it stays on screen while the
+  photos, feature cards and specifications scroll (as in the Figma prototype), and stops before the
+  best sellers. Screen readers meet the title right after the packshot on every device. As in
+  Figma, the packshot's grey background runs to the window's left edge; `overflow-x: clip` on
+  `<main>` cuts the excess (`hidden` would break the sticky column).
+- **The colour selector is native radio buttons.** They are visually hidden inside a `<fieldset>`
+  and styled as swatches through their label (`has-checked:`, `has-focus-visible:`), so the
+  browser handles Tab, the arrow keys and the "1 of 2" announcement. The legend names the selected
+  colour ("Colour - Silver"). It is the only Client Component of the product info.
+- **"Where to buy" moves to a fixed bar on mobile**, as in the Figma mobile frame. Pages that render
+  the bar mark it with `data-buy-bar`, and one rule (`body:has([data-buy-bar])`) reserves its
+  height under the footer, so the last links are not covered; the layout knows nothing about it.
+- **The feature cards are their own component.** Their type (20/28px titles, black text), their
+  alignment (centred on top up to tablet, left on desktop) and the missing link differ from
+  `ProductCard` on almost every property. On desktop every third card is wide (wide, half, half,
+  wide…), so more features in the data continue the Figma bento.
+- **The accordion follows the WAI-ARIA pattern** rather than `<details>`: each title is a
+  `<button>` in a heading with `aria-expanded` and `aria-controls`, and the panel is a labelled
+  region. It takes the items, which ones start open and the heading level, so it is reusable
+  outside the product page. All sections start open, as in the prototype.
+- **Hidden section titles.** The feature cards and the specifications have no title in Figma; an
+  `<h2>` visible only to screen readers keeps the heading levels in order (`h1` → `h2` → `h3`).
+- **Unknown slugs are a 404 from the first request.** With Cache Components, a slug that was not
+  generated at build time is rendered on its first visit, and by default Next starts streaming a
+  200 page shell before `notFound()` runs. `ensureStatic = "navigation"` makes that first request
+  wait for the complete static render, so the status stays 404; it also makes the build fail if the
+  page ever reads request-time data. The category placeholder pages use the same setting.
+- **Shared Open Graph fields live in one module.** Metadata merges shallowly, so a page that sets
+  `openGraph` replaces the layout's whole object; `shared-metadata.ts` holds the fields every page
+  repeats.
 
 - **Satoshi is loaded from the Fontshare CDN, not self-hosted.** The ITF Free Font License allows
   self-hosting on your own site but forbids redistributing the font file, including through a
