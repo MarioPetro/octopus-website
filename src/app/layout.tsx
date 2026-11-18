@@ -23,6 +23,7 @@ export const metadata: Metadata = {
     template: "%s | Octopus",
   },
   description: DESCRIPTION,
+  icons: { icon: "/favicon.ico" },
   openGraph: {
     ...baseOpenGraph,
     url: "/",
